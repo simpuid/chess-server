@@ -27,4 +27,14 @@ public class MoveNormal extends Move {
         source = new Position(Integer.parseInt(tokens[6]));
         destination = new Position(Integer.parseInt(tokens[7]));
     }
+
+    @Override
+    public String encode() {
+        String mColor;
+        if (color.equals(Color.BLACK))
+            mColor = "black";
+        else
+            mColor = "white";
+        return "move normal " + gameId + " " + mColor + " " + timeStamp + " " + pieceId + " " + source.getID() + " " + destination.getID();
+    }
 }

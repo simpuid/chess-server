@@ -37,4 +37,14 @@ public class MoveCastle extends Move {
         rookSource = new Position(Integer.parseInt(tokens[9]));
         rookDestination = new Position(Integer.parseInt(tokens[10]));
     }
+
+    @Override
+    public String encode() {
+        String mColor;
+        if (color == Color.BLACK)
+            mColor = "black";
+        else
+            mColor = "white";
+        return "move castle " + gameId + " " + mColor + " " + timeStamp + " " + kingId + " " + kingSource.getID() + " " + kingDestination.getID() + " " + rookId + " " + rookSource.getID() + " " + rookDestination.getID();
+    }
 }

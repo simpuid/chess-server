@@ -16,4 +16,14 @@ public class MoveTerminate extends Move {
     public void decode(String[] tokens) throws Exception {
         super.decode(tokens);
     }
+
+    @Override
+    public String encode() {
+        String mColor;
+        if (color.equals(Color.BLACK))
+            mColor = "black";
+        else
+            mColor = "white";
+        return "move terminate " + gameId + " " + mColor + " " + timeStamp;
+    }
 }

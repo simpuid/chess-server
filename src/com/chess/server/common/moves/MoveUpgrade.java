@@ -44,6 +44,23 @@ public class MoveUpgrade extends Move {
             upgradeUnit = PieceType.QUEEN;
         else
             throw new Exception("piece type unknown");
+    }
 
+    @Override
+    public String encode() {
+        String mColor;
+        if (color.equals(Color.BLACK))
+            mColor = "black";
+        else
+            mColor = "white";
+
+        String mUpgradeUnit = null;
+        if (upgradeUnit == PieceType.BISHOP) mUpgradeUnit = "bishop";
+        if (upgradeUnit == PieceType.KING) mUpgradeUnit = "king";
+        if (upgradeUnit == PieceType.KNIGHT) mUpgradeUnit = "knight";
+        if (upgradeUnit == PieceType.PAWN) mUpgradeUnit = "pawn";
+        if (upgradeUnit == PieceType.QUEEN) mUpgradeUnit = "queen";
+        if (upgradeUnit == PieceType.ROOK) mUpgradeUnit = "rook";
+        return "move upgrade " + gameId + " " + mColor + " " + timeStamp + " " + pieceId + " " + source.getID() + " " + destination.getID() + " " + mUpgradeUnit;
     }
 }
