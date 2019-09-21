@@ -63,6 +63,34 @@ public class Pawn extends Piece {
                     }
                 }
             }
+            if ((xd == (xs - 1)) && (yd == (ys + 1))) {
+                if (chessBoard.boxArray[xs - 1][ys + 1].piece == null) {
+                    if (ys != 4)
+                        return false;
+                    else {
+                        if (chessBoard.boxArray[xs - 1][ys].piece == null)
+                            return false;
+                        else {
+                            if (chessBoard.boxArray[xs - 1][ys].piece.color == Color.WHITE)
+                                return false;
+                            else {
+                                if (chessBoard.boxArray[xs - 1][ys].piece.color == Color.BLACK) {
+                                    if (chessBoard.boxArray[xs - 1][ys].piece.moveCount != 1)
+                                        return false;
+                                    else return true;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if (chessBoard.boxArray[xs - 1][ys + 1].piece.color == Color.WHITE)
+                        return false;
+                    else {
+                        if (chessBoard.boxArray[xs - 1][ys + 1].piece.color == Color.BLACK)
+                            return true;
+                    }
+                }
+            }
             return false;
         }
         if (move.color == Color.BLACK) {
@@ -108,6 +136,34 @@ public class Pawn extends Piece {
                     }
                 }
             }
+            if ((xd == (xs + 1)) && (yd == (ys - 1))) {
+                if (chessBoard.boxArray[xs + 1][ys - 1].piece == null) {
+                    if (ys != 3)
+                        return false;
+                    else {
+                        if (chessBoard.boxArray[xs + 1][ys].piece == null)
+                            return false;
+                        else {
+                            if (chessBoard.boxArray[xs + 1][ys].piece.color == Color.BLACK)
+                                return false;
+                            else {
+                                if (chessBoard.boxArray[xs + 1][ys].piece.color == Color.WHITE) {
+                                    if (chessBoard.boxArray[xs + 1][ys].piece.moveCount != 1)
+                                        return false;
+                                    else return true;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if (chessBoard.boxArray[xs + 1][ys - 1].piece.color == Color.BLACK)
+                        return false;
+                    else {
+                        if (chessBoard.boxArray[xs + 1][ys - 1].piece.color == Color.WHITE)
+                            return true;
+                    }
+                }
+            }
             return false;
         }
         return false;
@@ -137,6 +193,19 @@ public class Pawn extends Piece {
                     }
                 }
             }
+            if ((xd == (xs - 1)) && (yd == (ys + 1))) {
+                if (chessBoard.boxArray[xs - 1][ys + 1].piece == null) {
+                    return false;
+                }
+                else {
+                    if (chessBoard.boxArray[xs - 1][ys + 1].piece.color == Color.WHITE)
+                        return false;
+                    else {
+                        if (chessBoard.boxArray[xs - 1][ys + 1].piece.color == Color.BLACK)
+                            return true;
+                    }
+                }
+            }
             return false;
         }
         if (moveUpgrade.color == Color.BLACK) {
@@ -154,6 +223,19 @@ public class Pawn extends Piece {
                         return false;
                     else {
                         if (chessBoard.boxArray[xs - 1][ys - 1].piece.color == Color.WHITE)
+                            return true;
+                    }
+                }
+            }
+            if ((xd == (xs + 1)) && (yd == (ys - 1))) {
+                if (chessBoard.boxArray[xs + 1][ys - 1].piece == null) {
+                    return false;
+                }
+                else {
+                    if (chessBoard.boxArray[xs + 1][ys - 1].piece.color == Color.BLACK)
+                        return false;
+                    else {
+                        if (chessBoard.boxArray[xs + 1][ys - 1].piece.color == Color.WHITE)
                             return true;
                     }
                 }
