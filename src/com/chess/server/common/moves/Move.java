@@ -19,4 +19,8 @@ public class Move {
 
         timeStamp = Integer.parseInt(tokens[4]);
     }
+
+    public String encode() {
+        return "timeStamp: " + timeStamp + " color:" + color + " gameId:" + gameId;
+    }
 }

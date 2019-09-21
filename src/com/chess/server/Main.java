@@ -1,8 +1,8 @@
 package com.chess.server;
 
 public class Main {
-
     public static void main(String[] args) {
-        Server server = new Server();
+        Console console = new Console();
+        console.run();
     }
 }
