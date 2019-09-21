@@ -135,7 +135,7 @@ public class ChessBoard {
             return new InvalidMove();
         if (!pieceArray[move.pieceId].checkValid(move, this))
             return new InvalidMove();
-        return new GameFinished(Color.WHITE);
+        return this.pieceArray[move.pieceId].movePiece(move, this);
     }
 
     public Result evaluate(Move move) {

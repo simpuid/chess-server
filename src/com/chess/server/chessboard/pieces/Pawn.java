@@ -5,6 +5,8 @@ import com.chess.server.common.Position;
 import com.chess.server.common.moves.Move;
 import com.chess.server.common.moves.MoveNormal;
 import com.chess.server.common.moves.MoveUpgrade;
+import com.chess.server.common.results.Delta;
+import com.chess.server.common.results.StateChange;
 
 public class Pawn extends Piece {
     public Pawn(Color color, int pieceID, Position boxID, PieceType type) {
@@ -243,5 +245,62 @@ public class Pawn extends Piece {
             return false;
         }
         return false;
+    }
+
+    public StateChange movePiece(MoveNormal move, ChessBoard chessBoard) {
+        this.boxID = move.destination;
+        int xd = move.destination.x;
+        int yd = move.destination.y;
+        int xs = move.source.x;
+        int ys = move.source.y;
+        StateChange change = new StateChange();
+        this.moveCount = this.moveCount + 1;
+        if (chessBoard.boxArray[xd][yd].piece == null) {
+            chessBoard.boxArray[xd][yd].piece = chessBoard.pieceArray[move.pieceId];
+            chessBoard.boxArray[xs][ys].piece = null;
+            Position pos = new Position(xd, yd);
+            Delta delta = new Delta(move.pieceId, pos.getID());
+            change.deltas.add(delta);
+            if (chessBoard.pieceArray[move.pieceId].type == PieceType.PAWN) {
+                if (move.color == Color.BLACK) {
+                    int pid;
+                    if ((xd == xs + 1) && (yd == ys + 1)) {
+                        pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                        chessBoard.pieceArray[pid].boxID = new Position(64);
+                        chessBoard.boxArray[xd][ys].piece = null;
+                        change.deltas.add(new Delta(pid, 64));
+                    }
+                    if ((xd == xs - 1) && (yd == ys + 1)) {
+                        pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                        chessBoard.pieceArray[pid].boxID = new Position(64);
+                        chessBoard.boxArray[xd][ys].piece = null;
+                        change.deltas.add(new Delta(pid, 64));
+                    }
+                }
+                if (move.color == Color.WHITE) {
+                    int pid;
+                    if ((xd == xs + 1) && (yd == ys - 1)) {
+                        pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                        chessBoard.pieceArray[pid].boxID = new Position(64);
+                        chessBoard.boxArray[xd][ys].piece = null;
+                        change.deltas.add(new Delta(pid, 64));
+                    }
+                    if ((xd == xs - 1) && (yd == ys - 1)) {
+                        pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                        chessBoard.pieceArray[pid].boxID = new Position(64);
+                        chessBoard.boxArray[xd][ys].piece = null;
+                        change.deltas.add(new Delta(pid, 64));
+                    }
+                }
+            }
+        } else {
+            int pid = chessBoard.boxArray[xd][yd].piece.pieceID;
+            chessBoard.pieceArray[pid].boxID = new Position(64);
+            change.deltas.add(new Delta(pid, 64));
+            chessBoard.boxArray[xd][yd].piece = chessBoard.pieceArray[move.pieceId];
+            change.deltas.add(new Delta(move.pieceId, xd + yd * 8));
+            chessBoard.boxArray[xs][ys].piece = null;
+        }
+        return change;
     }
 }
