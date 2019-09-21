@@ -1,5 +1,7 @@
 package com.chess.server.common.results;
 
-public class GameFinished extends Result{
-    boolean won;
+import com.chess.server.chessboard.pieces.Color;
+
+public class GameFinished extends Result {
+    Color winner;
 }

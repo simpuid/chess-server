@@ -22,7 +22,7 @@ public class ChessBoard {
         boxArray[0][0].piece=new Pawn(Color.BLACK,0,pos);
     }
     public Result giveResult(Move move){
-        if (move.type== MoveType.TERMINATE){
+        if (move instanceof MoveTerminate){
             Result result=new GameFinished();
             return  result;
         }
