@@ -1,0 +1,8 @@
+#	result invalid
+#	result finish [white/black]
+#	result change <deltaCount> { <pieceId> <positionId> }
+
+#	move normal <gameId> <color> <timeStamp> <pieceId> <source> <destination>
+#	move terminate <gameId> <color> <timeStamp>
+#	move castle <gameId> <color> <timeStamp> <kingId> <kingSource> <kingDestination> <rookId> <rookSource> <rookDestination>
+#	move upgrade <gameId> <color> <timeStamp> <pieceId> <source> <destination> <pieceType>
