@@ -67,7 +67,7 @@ public class ChessBoard {
         boxArray[0][0].piece = new Pawn(Color.BLACK, 0, posn, PieceType.PAWN);
     }
 
-    public Result giveResult(Move move) {
+    public Result giveResult(Move move,ChessBoard chessBoard) {
         Result result = null;
         if (move instanceof MoveTerminate) {
             if (move.color == Color.BLACK)
@@ -97,7 +97,9 @@ public class ChessBoard {
                 }
                 if (((MoveNormal) move).source.equals((boxArray[xs][ys].piece.boxID))) {
                     if (((MoveNormal) move).source.equals(pieceArray[((MoveNormal) move).pieceId].boxID)){
-                        return null;
+                        if (chessBoard.pieceArray[((MoveNormal) move).pieceId].checkValid(((MoveNormal) move),chessBoard)){
+
+                        }
                     }
                 }
             }

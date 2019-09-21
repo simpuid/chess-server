@@ -1,6 +1,8 @@
 package com.chess.server.chessboard.pieces;
 
+import com.chess.server.chessboard.ChessBoard;
 import com.chess.server.common.Position;
+import com.chess.server.common.moves.MoveNormal;
 
 public class Piece {
     public Color color;
@@ -15,7 +17,7 @@ public class Piece {
     public Color getColor(){
         return color;
     }
-    public  boolean checkValid(){
+    public  boolean checkValid(MoveNormal move, ChessBoard chessBoard){
         return  false;
     }
     public PieceType getType() {
