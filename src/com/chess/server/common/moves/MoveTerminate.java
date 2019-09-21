@@ -8,4 +8,12 @@ public class MoveTerminate extends Move {
         this.gameId = gameId;
         this.timeStamp = timeStamp;
     }
+
+    public MoveTerminate() {
+    }
+
+    @Override
+    public void setAttributes(String[] tokens) throws Exception {
+        super.setAttributes(tokens);
+    }
 }

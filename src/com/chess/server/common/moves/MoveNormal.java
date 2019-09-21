@@ -16,4 +16,15 @@ public class MoveNormal extends Move {
         this.source = source;
         this.destination = destination;
     }
+
+    public MoveNormal() {
+    }
+
+    @Override
+    public void setAttributes(String[] tokens) throws Exception {
+        super.setAttributes(tokens);
+        pieceId = Integer.parseInt(tokens[5]);
+        source = new Position(Integer.parseInt(tokens[6]));
+        destination = new Position(Integer.parseInt(tokens[7]));
+    }
 }
