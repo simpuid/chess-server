@@ -3,7 +3,11 @@ package com.chess.server.common.results;
 import java.util.ArrayList;
 
 public class StateChange extends Result {
-    ArrayList<Delta> deltas;
+    public ArrayList<Delta> deltas;
+
+    public StateChange() {
+        deltas = new ArrayList<Delta>();
+    }
 
     @Override
     public String encode() {
