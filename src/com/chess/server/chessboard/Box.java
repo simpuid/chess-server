@@ -11,7 +11,7 @@ public class Box {
         return piece == null;
     }
 
-    Box(Piece piece, Position position) {
+    public Box(Piece piece, Position position) {
         this.piece = piece;
         this.position = position;
     }
