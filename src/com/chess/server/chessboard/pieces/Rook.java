@@ -3,7 +3,7 @@ package com.chess.server.chessboard.pieces;
 import com.chess.server.common.Position;
 
 public class Rook extends Piece {
-    Rook(Color color, int pieceID, Position boxID) {
+    public Rook(Color color, int pieceID, Position boxID) {
         this.color = color;
         this.pieceID = pieceID;
         this.boxID = boxID;
