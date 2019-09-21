@@ -88,10 +88,6 @@ public class ChessBoard {
         }
     }
 
-    private int abs(int x) {
-        return x > 0 ? x : -x;
-    }
-
     private int sign(int x) {
         if (x == 0) return 0;
         return x > 0 ? 1 : -1;
@@ -100,20 +96,26 @@ public class ChessBoard {
     public boolean lineTest(Position source, Position destination) {
         int sx = source.x, sy = source.y;
         int dx = destination.x, dy = destination.y;
-        int absx = abs(sx - dx), absy = abs(sy - dy);
-        int sigx = sign(dx - sx), sigy = sign(dy - sy);
-        System.out.println(absx + " " + absy);
-        if (absx == 0 && absy == 0)
+        int absX = Math.abs(sx - dx), absY = Math.abs(sy - dy);
+        int signX = sign(dx - sx), signY = sign(dy - sy);
+        System.out.println(absX + " " + absY);
+        if (absX == 0 && absY == 0)
             return false;
-        if (absx != absy && absx * absy != 0)
+        if (absX != absY && absX * absY != 0)
             return false;
 
-        for (int i = 1; i < (absx > absy ? absx : absy); i++) {
-            System.out.print((sx + sigx * i) + "x" + (sy + sigy * i) + " ");
-            if (!boxArray[sx + sigx * i][sy + sigy * i].isEmpty())
+        for (int i = 1; i < (absX > absY ? absX : absY); i++) {
+            System.out.print((sx + signX * i) + "x" + (sy + signY * i) + " ");
+            if (!boxArray[sx + signX * i][sy + signY * i].isEmpty())
                 return true;
         }
         return false;
+    }
+
+    public Piece getPiece(int x, int y) {
+        if (x < 0 || x > 7 || y < 0 || y > 7)
+            return null;
+        return boxArray[x][y].piece;
     }
 
     private Result evaluate(MoveTerminate move) {
@@ -125,13 +127,15 @@ public class ChessBoard {
     }
 
     private Result evaluate(MoveNormal move) {
-        int xs = move.source.x;
-        int ys = move.source.y;
+        int sx = move.source.x;
+        int sy = move.source.y;
         if (checkBounds(move.source) || checkBounds(move.destination))
             return new InvalidMove();
-        if (boxArray[move.source.x][move.source.y].isEmpty())
+        if (lineTest(move.source, move.destination))
             return new InvalidMove();
-        if (boxArray[move.source.x][move.source.y].piece.pieceID != move.pieceId)
+        if (getPiece(sx, sy) == null)
+            return new InvalidMove();
+        if (getPiece(sx, sy).pieceID != move.pieceId)
             return new InvalidMove();
         if (!pieceArray[move.pieceId].checkValid(move, this))
             return new InvalidMove();
