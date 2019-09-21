@@ -1,25 +1,29 @@
 package com.chess.server.parser;
 
+import com.chess.server.common.moves.*;
+
 public class Decoder {
-//    public Move decode(String input){
-//        try
-//        {
-//            String[] tokens = input.split(" ",7);
-//            if (tokens.length != 7)
-//                return null;
-//            if (tokens[0] != "move")
-//                return null;
-//            int gameID = Integer.parseInt(tokens[1]);
-//            MoveType moveType = MoveType.NORMAL;
-//            if (tokens[2] == "normal")
-//                moveType = MoveType.NORMAL;
-//            else if (tokens[2] == "special")
-//                moveType = MoveType.SPECIAL;
-//            else if (tokens[2] == Mo)
-//        }
-//        catch (Exception e)
-//        {
-//            return null;
-//        }
-//    }
+    public Move decode(String input) {
+        try {
+            String[] tokens = input.split(" ", 11);
+            if (tokens.length < 5)
+                return null;
+            Move result;
+            if (tokens[1].equals("normal"))
+                result = new MoveNormal();
+            else if (tokens[1].equals("terminate"))
+                result = new MoveTerminate();
+            else if (tokens[1].equals("castle"))
+                result = new MoveCastle();
+            else if (tokens[1].equals("upgrade"))
+                result = new MoveUpgrade();
+            else
+                return null;
+
+            result.setAttributes(tokens);
+            return result;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

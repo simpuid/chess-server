@@ -22,4 +22,19 @@ public class MoveCastle extends Move {
         this.rookSource = rookSource;
         this.rookDestination = rookDestination;
     }
+
+    public MoveCastle() {
+    }
+
+    @Override
+    public void setAttributes(String[] tokens) throws Exception {
+        super.setAttributes(tokens);
+        kingId = Integer.parseInt(tokens[5]);
+        kingSource = new Position(Integer.parseInt(tokens[6]));
+        kingDestination = new Position(Integer.parseInt(tokens[7]));
+
+        rookId = Integer.parseInt(tokens[8]);
+        rookSource = new Position(Integer.parseInt(tokens[9]));
+        rookDestination = new Position(Integer.parseInt(tokens[10]));
+    }
 }
