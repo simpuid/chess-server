@@ -14,6 +14,10 @@ public class ChessBoard {
         boxArray[0][0].piece=new Pawn(Color.BLACK,0,pos);
     }
     public Result giveResult(Move move){
+        if (move.type==MoveType.TERMINATE){
+            Result result=new GameFinished();
+            return  result;
+        }
         Result result=new GameFinished();
         return  result;
     }

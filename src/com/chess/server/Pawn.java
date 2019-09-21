@@ -7,7 +7,12 @@ public class Pawn extends Piece{
         this.boxID=boxID;
     }
     @Override
-    public boolean checkValid(){
-        return false;
+    public boolean checkValid(Move move,ChessBoard chessBoard){
+        if (move.type==MoveType.TERMINATE){
+            return true;
+        }
+        else if (move.type==MoveType.NORMAL){
+
+        }
     }
 }
