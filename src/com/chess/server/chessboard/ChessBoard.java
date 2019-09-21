@@ -77,16 +77,25 @@ public class ChessBoard {
             return result;
         } else {
             if (move instanceof MoveNormal) {
-                int xx = ((MoveNormal) move).source.x;
-                int yy = ((MoveNormal) move).source.y;
-                if ((xx >= 8) || (xx < 0)) {
+                int xs = ((MoveNormal) move).source.x;
+                int ys = ((MoveNormal) move).source.y;
+                if ((xs >= 8) || (xs < 0)) {
                     result = new InvalidMove();
                     return result;
-                } else if ((yy >= 8) || (yy < 0)) {
+                } else if ((ys >= 8) || (ys < 0)) {
                     result = new InvalidMove();
                     return result;
                 }
-                if (((MoveNormal) move).source.equals((boxArray[xx][yy].piece.boxID))) {
+                int xd = ((MoveNormal) move).destination.x;
+                int yd = ((MoveNormal) move).destination.y;
+                if ((xd >= 8) || (xd < 0)) {
+                    result = new InvalidMove();
+                    return result;
+                } else if ((yd >= 8) || (yd < 0)) {
+                    result = new InvalidMove();
+                    return result;
+                }
+                if (((MoveNormal) move).source.equals((boxArray[xs][ys].piece.boxID))) {
                     if (((MoveNormal) move).source.equals(pieceArray[((MoveNormal) move).pieceId].boxID)){
                         return null;
                     }
