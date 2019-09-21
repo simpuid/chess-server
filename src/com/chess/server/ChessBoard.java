@@ -12,7 +12,9 @@ public class ChessBoard {
         }
         Position pos=new Position(0);
         boxArray[0][0].piece=new Pawn(Color.BLACK,0,pos);
-
     }
-
+    public Result giveResult(Move move){
+        Result result=new GameFinished();
+        return  result;
+    }
 }
