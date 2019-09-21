@@ -1,4 +1,7 @@
-package com.chess.server;
+package com.chess.server.chessboard.pieces;
+
+import com.chess.server.common.Position;
+
 public class Piece {
     public Color color;
     public int pieceID;
