@@ -1,10 +1,10 @@
 package com.chess.server;
 
 public class Bishop extends Piece{
-    Bishop(Color c,int pid,int bid){
-        color=c;
-        pieceID=pid;
-        boxID=bid;
+    Bishop(Color color,int pieceID,Position boxID){
+        this.color=color;
+        this.pieceID=pieceID;
+        this.boxID=boxID;
     }
     @Override
     public boolean checkValid(){

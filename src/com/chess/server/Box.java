@@ -8,4 +8,8 @@ public class Box {
             return true;
         else return false;
     }
+    Box(Piece piece,Position position){
+        this.piece=piece;
+        this.position=position;
+    }
 }

@@ -2,7 +2,7 @@ package com.chess.server;
 public class Piece {
     public Color color;
     public int pieceID;
-    public int boxID;
+    public Position boxID;
 
     public int getPieceID() {
         return pieceID;
