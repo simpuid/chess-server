@@ -7,6 +7,7 @@ public class Piece {
     public int pieceID;
     public PieceType type;
     public Position boxID;
+    public int moveCount;
 
     public int getPieceID() {
         return pieceID;
@@ -19,5 +20,8 @@ public class Piece {
     }
     public PieceType getType() {
         return type;
+    }
+    public int getMoveCount(){
+        return moveCount;
     }
 }

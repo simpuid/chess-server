@@ -8,6 +8,7 @@ public class Queen extends Piece {
         this.pieceID = pieceID;
         this.boxID = boxID;
         this.type=type;
+        this.moveCount=0;
     }
 
     public boolean checkValid() {
