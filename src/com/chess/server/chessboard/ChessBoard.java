@@ -98,7 +98,8 @@ public class ChessBoard {
                 if (((MoveNormal) move).source.equals((boxArray[xs][ys].piece.boxID))) {
                     if (((MoveNormal) move).source.equals(pieceArray[((MoveNormal) move).pieceId].boxID)){
                         if (chessBoard.pieceArray[((MoveNormal) move).pieceId].checkValid(((MoveNormal) move),chessBoard)){
-
+                            result=new GameFinished(Color.WHITE);
+                            return result;
                         }
                     }
                 }
