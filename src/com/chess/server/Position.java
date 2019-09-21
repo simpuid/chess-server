@@ -1,7 +1,5 @@
 package com.chess.server;
 
-import javafx.geometry.Pos;
-
 public class Position {
     public int x;
     public int y;
