@@ -27,8 +27,8 @@ public class MoveCastle extends Move {
     }
 
     @Override
-    public void setAttributes(String[] tokens) throws Exception {
-        super.setAttributes(tokens);
+    public void decode(String[] tokens) throws Exception {
+        super.decode(tokens);
         kingId = Integer.parseInt(tokens[5]);
         kingSource = new Position(Integer.parseInt(tokens[6]));
         kingDestination = new Position(Integer.parseInt(tokens[7]));

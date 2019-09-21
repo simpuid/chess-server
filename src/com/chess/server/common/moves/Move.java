@@ -7,7 +7,7 @@ public class Move {
     public Color color;
     public int gameId;
 
-    public void setAttributes(String[] tokens) throws Exception {
+    public void decode(String[] tokens) throws Exception {
         gameId = Integer.parseInt(tokens[2]);
 
         if (tokens[3].equals("black"))
