@@ -1,4 +1,6 @@
-package com.chess.server;
+package com.chess.server.common.moves;
+
+import com.chess.server.common.Position;
 
 public class Move {
     public MoveType type;

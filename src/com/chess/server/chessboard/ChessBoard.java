@@ -1,7 +1,11 @@
-package com.chess.server;
+package com.chess.server.chessboard;
+
+import com.chess.server.chessboard.pieces.Color;
+import com.chess.server.chessboard.pieces.Pawn;
+import com.chess.server.common.Position;
 
 public class ChessBoard {
-    public Box boxArray[][];
+    public Box[][] boxArray;
     ChessBoard(){
         boxArray=new Box[8][8];
         for (int i=0;i<8;i++){

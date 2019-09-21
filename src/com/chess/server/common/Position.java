@@ -1,4 +1,4 @@
-package com.chess.server;
+package com.chess.server.common;
 
 public class Position {
     public int x;
@@ -19,8 +19,6 @@ public class Position {
     }
 
     public boolean isDead() {
-        if (x >= 0 && x < 8 && y >= 0 && y < 8)
-            return false;
-        return true;
+        return x < 0 || x >= 8 || y < 0 || y >= 8;
     }
 }

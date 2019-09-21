@@ -1,4 +1,4 @@
-package com.chess.server;
+package com.chess.server.common.results;
 
 import java.util.ArrayList;
 
