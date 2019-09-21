@@ -39,8 +39,6 @@ public class ChessBoard {
         pieceArray[4] = new Queen(Color.WHITE, 4, pos, PieceType.QUEEN);
 
 
-
-
         for (int i = 16; i < 24; i++) {
             pos = new Position(i + 32);
             pieceArray[i] = new Pawn(Color.BLACK, i, pos, PieceType.PAWN);
@@ -74,6 +72,7 @@ public class ChessBoard {
         for (int i = 0; i < 32; i++) {
             boxArray[pieceArray[i].boxID.x][pieceArray[i].boxID.y].piece = pieceArray[i];
         }
+        boxArray[1][2].piece = pieceArray[16];
     }
 
     public void print() {
@@ -87,6 +86,34 @@ public class ChessBoard {
             }
             System.out.println();
         }
+    }
+
+    private int abs(int x) {
+        return x > 0 ? x : -x;
+    }
+
+    private int sign(int x) {
+        if (x == 0) return 0;
+        return x > 0 ? 1 : -1;
+    }
+
+    public boolean lineTest(Position source, Position destination) {
+        int sx = source.x, sy = source.y;
+        int dx = destination.x, dy = destination.y;
+        int absx = abs(sx - dx), absy = abs(sy - dy);
+        int sigx = sign(dx - sx), sigy = sign(dy - sy);
+        System.out.println(absx + " " + absy);
+        if (absx == 0 && absy == 0)
+            return false;
+        if (absx != absy && absx * absy != 0)
+            return false;
+
+        for (int i = 1; i < (absx > absy ? absx : absy); i++) {
+            System.out.print((sx + sigx * i) + "x" + (sy + sigy * i) + " ");
+            if (!boxArray[sx + sigx * i][sy + sigy * i].isEmpty())
+                return true;
+        }
+        return false;
     }
 
     private Result evaluate(MoveTerminate move) {
