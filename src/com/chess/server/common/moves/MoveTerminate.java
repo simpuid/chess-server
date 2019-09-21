@@ -13,7 +13,7 @@ public class MoveTerminate extends Move {
     }
 
     @Override
-    public void setAttributes(String[] tokens) throws Exception {
-        super.setAttributes(tokens);
+    public void decode(String[] tokens) throws Exception {
+        super.decode(tokens);
     }
 }

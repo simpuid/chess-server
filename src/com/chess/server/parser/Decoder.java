@@ -19,8 +19,7 @@ public class Decoder {
                 result = new MoveUpgrade();
             else
                 return null;
-
-            result.setAttributes(tokens);
+            result.decode(tokens);
             return result;
         } catch (Exception e) {
             return null;
