@@ -1,6 +1,6 @@
-//package com.chess.server;
-//
-//public class Decoder {
+package com.chess.server.parser;
+
+public class Decoder {
 //    public Move decode(String input){
 //        try
 //        {
@@ -22,4 +22,4 @@
 //            return null;
 //        }
 //    }
-//}
+}
