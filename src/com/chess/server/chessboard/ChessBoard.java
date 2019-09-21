@@ -4,7 +4,7 @@ import com.chess.server.chessboard.pieces.Color;
 import com.chess.server.chessboard.pieces.Pawn;
 import com.chess.server.common.Position;
 import com.chess.server.common.moves.Move;
-import com.chess.server.common.moves.MoveType;
+import com.chess.server.common.moves.MoveTerminate;
 import com.chess.server.common.results.GameFinished;
 import com.chess.server.common.results.Result;
 
