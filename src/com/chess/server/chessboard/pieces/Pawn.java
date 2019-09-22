@@ -207,8 +207,9 @@ public class Pawn extends Piece {
             if (chessBoard.getPiece(sx + signX, sy).color == color)
                 return false;
             return sy == (7 + signY) / 2;
+        } else {
+            return chessBoard.getPiece(dx, dy) == null;
         }
-        return true;
     }
 
     public boolean checkValidUpgrade(MoveUpgrade moveUpgrade, ChessBoard chessBoard) {
