@@ -195,7 +195,18 @@ public class Pawn extends Piece {
                 return false;
         }
         if (absX != 0) {
-            return chessBoard.getPiece(sx + signX, sy) != null || chessBoard.getPiece(sx + signX, sy + signY) != null;
+            if (chessBoard.getPiece(sx + signX, sy + signY) != null) {
+                return chessBoard.getPiece(sx + signX, sy + signY).color != color;
+            }
+            if (chessBoard.getPiece(sx + signX, sy) == null)
+                return false;
+            if (!(chessBoard.getPiece(sx + signX, sy) instanceof Pawn))
+                return false;
+            if (chessBoard.getPiece(sx + signX, sy).moveCount != 1)
+                return false;
+            if (chessBoard.getPiece(sx + signX, sy).color == color)
+                return false;
+            return sy == (7 + signY) / 2;
         }
         return true;
     }
@@ -212,8 +223,7 @@ public class Pawn extends Piece {
             if ((xd == (xs + 1)) && (yd == (ys + 1))) {
                 if (chessBoard.boxArray[xs + 1][ys + 1].piece == null) {
                     return false;
-                }
-                else {
+                } else {
                     if (chessBoard.boxArray[xs + 1][ys + 1].piece.color == Color.WHITE)
                         return false;
                     else {
@@ -225,8 +235,7 @@ public class Pawn extends Piece {
             if ((xd == (xs - 1)) && (yd == (ys + 1))) {
                 if (chessBoard.boxArray[xs - 1][ys + 1].piece == null) {
                     return false;
-                }
-                else {
+                } else {
                     if (chessBoard.boxArray[xs - 1][ys + 1].piece.color == Color.WHITE)
                         return false;
                     else {
@@ -243,8 +252,7 @@ public class Pawn extends Piece {
             if ((xd == (xs - 1)) && (yd == (ys - 1))) {
                 if (chessBoard.boxArray[xs - 1][ys - 1].piece == null) {
                     return false;
-                }
-                else {
+                } else {
                     if (chessBoard.boxArray[xs - 1][ys - 1].piece.color == Color.BLACK)
                         return false;
                     else {
@@ -256,8 +264,7 @@ public class Pawn extends Piece {
             if ((xd == (xs + 1)) && (yd == (ys - 1))) {
                 if (chessBoard.boxArray[xs + 1][ys - 1].piece == null) {
                     return false;
-                }
-                else {
+                } else {
                     if (chessBoard.boxArray[xs + 1][ys - 1].piece.color == Color.BLACK)
                         return false;
                     else {
@@ -281,39 +288,36 @@ public class Pawn extends Piece {
         if (chessBoard.boxArray[xd][yd].piece == null) {
             chessBoard.boxArray[xd][yd].piece = chessBoard.pieceArray[move.pieceId];
             chessBoard.boxArray[xs][ys].piece = null;
-            Position pos = new Position(xd, yd);
-            Delta delta = new Delta(move.pieceId, pos.getID());
+            Delta delta = new Delta(move.pieceId, xd + yd * 8);
             change.deltas.add(delta);
-            if (chessBoard.pieceArray[move.pieceId].type == PieceType.PAWN) {
-                if (move.color == Color.BLACK) {
-                    int pid;
-                    if ((xd == xs + 1) && (yd == ys + 1)) {
-                        pid = chessBoard.boxArray[xd][ys].piece.pieceID;
-                        chessBoard.pieceArray[pid].boxID = new Position(64);
-                        chessBoard.boxArray[xd][ys].piece = null;
-                        change.deltas.add(new Delta(pid, 64));
-                    }
-                    if ((xd == xs - 1) && (yd == ys + 1)) {
-                        pid = chessBoard.boxArray[xd][ys].piece.pieceID;
-                        chessBoard.pieceArray[pid].boxID = new Position(64);
-                        chessBoard.boxArray[xd][ys].piece = null;
-                        change.deltas.add(new Delta(pid, 64));
-                    }
+            if (move.color == Color.BLACK) {
+                int pid;
+                if ((xd == xs + 1) && (yd == ys - 1)) {
+                    pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                    chessBoard.pieceArray[pid].boxID = new Position(64);
+                    chessBoard.boxArray[xd][ys].piece = null;
+                    change.deltas.add(new Delta(pid, 64));
                 }
-                if (move.color == Color.WHITE) {
-                    int pid;
-                    if ((xd == xs + 1) && (yd == ys - 1)) {
-                        pid = chessBoard.boxArray[xd][ys].piece.pieceID;
-                        chessBoard.pieceArray[pid].boxID = new Position(64);
-                        chessBoard.boxArray[xd][ys].piece = null;
-                        change.deltas.add(new Delta(pid, 64));
-                    }
-                    if ((xd == xs - 1) && (yd == ys - 1)) {
-                        pid = chessBoard.boxArray[xd][ys].piece.pieceID;
-                        chessBoard.pieceArray[pid].boxID = new Position(64);
-                        chessBoard.boxArray[xd][ys].piece = null;
-                        change.deltas.add(new Delta(pid, 64));
-                    }
+                if ((xd == xs - 1) && (yd == ys - 1)) {
+                    pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                    chessBoard.pieceArray[pid].boxID = new Position(64);
+                    chessBoard.boxArray[xd][ys].piece = null;
+                    change.deltas.add(new Delta(pid, 64));
+                }
+            }
+            if (move.color == Color.WHITE) {
+                int pid;
+                if ((xd == xs + 1) && (yd == ys + 1)) {
+                    pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                    chessBoard.pieceArray[pid].boxID = new Position(64);
+                    chessBoard.boxArray[xd][ys].piece = null;
+                    change.deltas.add(new Delta(pid, 64));
+                }
+                if ((xd == xs - 1) && (yd == ys + 1)) {
+                    pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                    chessBoard.pieceArray[pid].boxID = new Position(64);
+                    chessBoard.boxArray[xd][ys].piece = null;
+                    change.deltas.add(new Delta(pid, 64));
                 }
             }
         } else {

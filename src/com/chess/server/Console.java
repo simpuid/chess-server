@@ -27,6 +27,7 @@ public class Console {
             }
             Result result = server.getResult(move);
             System.out.println("=>" + encoder.encode(result));
+            server.board.print();
         }
     }
 }

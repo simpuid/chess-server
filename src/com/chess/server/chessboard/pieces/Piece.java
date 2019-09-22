@@ -34,28 +34,21 @@ public class Piece {
     }
 
     public StateChange movePiece(MoveNormal move, ChessBoard chessBoard) {
-        this.boxID = move.destination;
+        boxID = move.destination;
         int xd = move.destination.x;
         int yd = move.destination.y;
         int xs = move.source.x;
         int ys = move.source.y;
         StateChange change=new StateChange();
-        this.moveCount = this.moveCount + 1;
-        if (chessBoard.boxArray[xd][yd].piece == null) {
-            chessBoard.boxArray[xd][yd].piece = chessBoard.pieceArray[move.pieceId];
-            chessBoard.boxArray[xs][ys].piece = null;
-            Position pos=new Position(xd,yd);
-            Delta delta=new Delta(move.pieceId,pos.getID());
-            change.deltas.add(delta);
-        }
-        else{
-            int pid = chessBoard.boxArray[xd][yd].piece.pieceID;
+        moveCount++;
+        if (chessBoard.getPiece(xd, yd) != null) {
+            int pid = chessBoard.getPiece(xd, yd).pieceID;
             chessBoard.pieceArray[pid].boxID = new Position(64);
             change.deltas.add(new Delta(pid,64));
-            chessBoard.boxArray[xd][yd].piece = chessBoard.pieceArray[move.pieceId];
-            change.deltas.add(new Delta(move.pieceId, xd + yd * 8));
-            chessBoard.boxArray[xs][ys].piece = null;
         }
+        chessBoard.boxArray[xd][yd].piece = chessBoard.pieceArray[move.pieceId];
+        change.deltas.add(new Delta(move.pieceId, xd + yd * 8));
+        chessBoard.boxArray[xs][ys].piece = null;
         return change;
     }
 }

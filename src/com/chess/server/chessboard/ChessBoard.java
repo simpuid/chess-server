@@ -72,7 +72,7 @@ public class ChessBoard {
         for (int i = 0; i < 32; i++) {
             boxArray[pieceArray[i].boxID.x][pieceArray[i].boxID.y].piece = pieceArray[i];
         }
-        boxArray[1][2].piece = pieceArray[16];
+//        boxArray[1][2].piece = pieceArray[16];
     }
 
     public void print() {
@@ -98,14 +98,12 @@ public class ChessBoard {
         int dx = destination.x, dy = destination.y;
         int absX = Math.abs(sx - dx), absY = Math.abs(sy - dy);
         int signX = sign(dx - sx), signY = sign(dy - sy);
-        System.out.println(absX + " " + absY);
         if (absX == 0 && absY == 0)
             return false;
         if (absX != absY && absX * absY != 0)
             return false;
 
         for (int i = 1; i < (absX > absY ? absX : absY); i++) {
-            System.out.print((sx + signX * i) + "x" + (sy + signY * i) + " ");
             if (!boxArray[sx + signX * i][sy + signY * i].isEmpty())
                 return true;
         }
@@ -139,7 +137,7 @@ public class ChessBoard {
             return new InvalidMove();
         if (!pieceArray[move.pieceId].checkValid(move, this))
             return new InvalidMove();
-        return this.pieceArray[move.pieceId].movePiece(move, this);
+        return pieceArray[move.pieceId].movePiece(move, this);
     }
 
     public Result evaluate(Move move) {

@@ -11,7 +11,7 @@ public class StateChange extends Result {
 
     @Override
     public String encode() {
-        String ret = "result change" + deltas.size();
+        String ret = "result change " + deltas.size();
         for (int i = 0; i < deltas.size(); i++) {
             Delta d = deltas.get(i);
             ret += " ";

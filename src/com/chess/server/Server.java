@@ -6,7 +6,7 @@ import com.chess.server.common.results.Result;
 
 class Server {
     private IdGenerator idGenerator;
-    private ChessBoard board;
+    public ChessBoard board;
 
     Server(){
         idGenerator = new IdGenerator();
