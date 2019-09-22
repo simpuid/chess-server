@@ -1,29 +1,21 @@
 package com.chess.server.common.moves;
 
 import com.chess.server.chessboard.pieces.Color;
+import com.chess.server.parser.Encoder;
+
+import java.util.Scanner;
 
 public class MoveTerminate extends Move {
     public MoveTerminate(Color color, int gameId, int timeStamp) {
-        this.color = color;
-        this.gameId = gameId;
-        this.timeStamp = timeStamp;
+        super(gameId, color, timeStamp);
     }
 
-    public MoveTerminate() {
+    public MoveTerminate(Scanner scanner) throws Exception {
+        super(scanner);
     }
 
-    @Override
-    public void decode(String[] tokens) throws Exception {
-        super.decode(tokens);
-    }
-
-    @Override
-    public String encode() {
-        String mColor;
-        if (color.equals(Color.BLACK))
-            mColor = "black";
-        else
-            mColor = "white";
-        return "move terminate " + gameId + " " + mColor + " " + timeStamp;
+    public void write(StringBuilder builder) {
+        Encoder.write("move terminate", builder);
+        super.write(builder);
     }
 }

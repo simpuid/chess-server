@@ -11,8 +11,6 @@ public class Console {
     void run() {
         Server server = new Server();
         Scanner scanner = new Scanner(System.in);
-        Decoder decoder = new Decoder();
-        Encoder encoder = new Encoder();
         boolean quit = false;
         while (!quit) {
             String input = scanner.nextLine();
@@ -20,13 +18,13 @@ public class Console {
                 quit = true;
                 continue;
             }
-            Move move = decoder.decode(input);
+            Move move = Decoder.decodeMove(input);
             if (move == null) {
                 System.out.println("wrong command");
                 continue;
             }
             Result result = server.getResult(move);
-            System.out.println("=>" + encoder.encode(result));
+            System.out.println("=>" + Encoder.encode(result));
             server.board.print();
         }
     }

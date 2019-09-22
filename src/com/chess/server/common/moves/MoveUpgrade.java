@@ -3,6 +3,10 @@ package com.chess.server.common.moves;
 import com.chess.server.chessboard.pieces.Color;
 import com.chess.server.chessboard.pieces.PieceType;
 import com.chess.server.common.Position;
+import com.chess.server.parser.Decoder;
+import com.chess.server.parser.Encoder;
+
+import java.util.Scanner;
 
 public class MoveUpgrade extends Move {
     public int pieceId;
@@ -11,56 +15,27 @@ public class MoveUpgrade extends Move {
     public PieceType upgradeUnit;
 
     public MoveUpgrade(Color color, int gameId, int timeStamp, int pieceId, Position source, Position destination, PieceType upgradeUnit) {
-        this.gameId = gameId;
-        this.color = color;
-        this.timeStamp = timeStamp;
+        super(gameId, color, timeStamp);
         this.pieceId = pieceId;
         this.source = source;
         this.destination = destination;
         this.upgradeUnit = upgradeUnit;
     }
 
-    public MoveUpgrade() {
+    public MoveUpgrade(Scanner scanner) throws Exception {
+        super(scanner);
+        pieceId = Decoder.readInt(scanner);
+        source = Decoder.readPosition(scanner);
+        destination = Decoder.readPosition(scanner);
+        upgradeUnit = Decoder.readPieceType(scanner);
     }
 
-    @Override
-    public void decode(String[] tokens) throws Exception {
-        super.decode(tokens);
-        pieceId = Integer.parseInt(tokens[5]);
-        source = new Position(Integer.parseInt(tokens[6]));
-        destination = new Position(Integer.parseInt(tokens[7]));
-
-        if (tokens[8].equals("pawn"))
-            upgradeUnit = PieceType.PAWN;
-        else if (tokens[8].equals("rook"))
-            upgradeUnit = PieceType.ROOK;
-        else if (tokens[8].equals("bishop"))
-            upgradeUnit = PieceType.BISHOP;
-        else if (tokens[8].equals("knight"))
-            upgradeUnit = PieceType.KNIGHT;
-        else if (tokens[8].equals("king"))
-            upgradeUnit = PieceType.KING;
-        else if (tokens[8].equals("queen"))
-            upgradeUnit = PieceType.QUEEN;
-        else
-            throw new Exception("piece type unknown");
-    }
-
-    @Override
-    public String encode() {
-        String mColor;
-        if (color.equals(Color.BLACK))
-            mColor = "black";
-        else
-            mColor = "white";
-
-        String mUpgradeUnit = null;
-        if (upgradeUnit == PieceType.BISHOP) mUpgradeUnit = "bishop";
-        if (upgradeUnit == PieceType.KING) mUpgradeUnit = "king";
-        if (upgradeUnit == PieceType.KNIGHT) mUpgradeUnit = "knight";
-        if (upgradeUnit == PieceType.PAWN) mUpgradeUnit = "pawn";
-        if (upgradeUnit == PieceType.QUEEN) mUpgradeUnit = "queen";
-        if (upgradeUnit == PieceType.ROOK) mUpgradeUnit = "rook";
-        return "move upgrade " + gameId + " " + mColor + " " + timeStamp + " " + pieceId + " " + source.getID() + " " + destination.getID() + " " + mUpgradeUnit;
+    public void write(StringBuilder builder) {
+        Encoder.write("move upgrade", builder);
+        super.write(builder);
+        Encoder.write(pieceId, builder);
+        Encoder.write(source, builder);
+        Encoder.write(destination, builder);
+        Encoder.write(upgradeUnit, builder);
     }
 }

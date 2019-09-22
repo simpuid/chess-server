@@ -2,6 +2,10 @@ package com.chess.server.common.moves;
 
 import com.chess.server.chessboard.pieces.Color;
 import com.chess.server.common.Position;
+import com.chess.server.parser.Decoder;
+import com.chess.server.parser.Encoder;
+
+import java.util.Scanner;
 
 public class MoveCastle extends Move {
     public int kingId;
@@ -11,10 +15,8 @@ public class MoveCastle extends Move {
     public Position rookSource;
     public Position rookDestination;
 
-    public MoveCastle(Color color, int gameId, int timeStamp, int kingId, Position kingSource, Position kingDestination, int rookId, Position rookSource, Position rookDestination) {
-        this.gameId = gameId;
-        this.color = color;
-        this.timeStamp = timeStamp;
+    public MoveCastle(int gameId, Color color, int timeStamp, int kingId, Position kingSource, Position kingDestination, int rookId, Position rookSource, Position rookDestination) {
+        super(gameId, color, timeStamp);
         this.kingId = kingId;
         this.kingSource = kingSource;
         this.kingDestination = kingDestination;
@@ -23,28 +25,24 @@ public class MoveCastle extends Move {
         this.rookDestination = rookDestination;
     }
 
-    public MoveCastle() {
+    public MoveCastle(Scanner scanner) throws Exception {
+        super(scanner);
+        kingId = Decoder.readInt(scanner);
+        kingSource = Decoder.readPosition(scanner);
+        kingDestination = Decoder.readPosition(scanner);
+        rookId = Decoder.readInt(scanner);
+        rookSource = Decoder.readPosition(scanner);
+        rookDestination = Decoder.readPosition(scanner);
     }
 
-    @Override
-    public void decode(String[] tokens) throws Exception {
-        super.decode(tokens);
-        kingId = Integer.parseInt(tokens[5]);
-        kingSource = new Position(Integer.parseInt(tokens[6]));
-        kingDestination = new Position(Integer.parseInt(tokens[7]));
-
-        rookId = Integer.parseInt(tokens[8]);
-        rookSource = new Position(Integer.parseInt(tokens[9]));
-        rookDestination = new Position(Integer.parseInt(tokens[10]));
-    }
-
-    @Override
-    public String encode() {
-        String mColor;
-        if (color == Color.BLACK)
-            mColor = "black";
-        else
-            mColor = "white";
-        return "move castle " + gameId + " " + mColor + " " + timeStamp + " " + kingId + " " + kingSource.getID() + " " + kingDestination.getID() + " " + rookId + " " + rookSource.getID() + " " + rookDestination.getID();
+    public void write(StringBuilder builder) {
+        Encoder.write("move castle", builder);
+        super.write(builder);
+        Encoder.write(kingId, builder);
+        Encoder.write(kingSource, builder);
+        Encoder.write(kingDestination, builder);
+        Encoder.write(rookId, builder);
+        Encoder.write(rookSource, builder);
+        Encoder.write(rookDestination, builder);
     }
 }

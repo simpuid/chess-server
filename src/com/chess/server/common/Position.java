@@ -14,6 +14,11 @@ public class Position {
         y = id / 8;
     }
 
+    public void decode(StringBuilder builder) {
+        builder.append(' ');
+        builder.append(getID());
+    }
+
     public int getID() {
         return (x + y * 8);
     }
