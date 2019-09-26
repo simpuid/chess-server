@@ -1,9 +1,12 @@
 package com.chess.client;
 
+import com.chess.server.common.moves.Move;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 public class ClientBoard extends JFrame {
 
@@ -98,6 +101,9 @@ public class ClientBoard extends JFrame {
         }
     }
 
+    private Move generateMove(int source, int destination) {
+        return null;
+    }
 
     public void displayBoard() {
         try {
