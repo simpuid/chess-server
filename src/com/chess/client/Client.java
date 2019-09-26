@@ -86,6 +86,11 @@ public class Client {
     }
 
     public void run() {
+        System.out.println("hello");
+        ClientBoard clientBoard = new ClientBoard();
+        System.out.println("hello");
+        clientBoard.displayBoard();
+        System.out.println("hello");
         receiveCycle();
         Scanner scanner = new Scanner(System.in);
         scanner.nextInt();
