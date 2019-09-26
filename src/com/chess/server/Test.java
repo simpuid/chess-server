@@ -1,7 +1,7 @@
 package com.chess.server;
 
-import com.chess.server.chessboard.pieces.Color;
-import com.chess.server.chessboard.pieces.PieceType;
+import com.chess.chessboard.pieces.Color;
+import com.chess.chessboard.pieces.PieceType;
 import com.chess.server.common.Position;
 import com.chess.server.common.moves.*;
 import com.chess.server.common.request.Host;

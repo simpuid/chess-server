@@ -1,6 +1,6 @@
 package com.chess.client;
 
-import com.chess.server.chessboard.pieces.Color;
+import com.chess.chessboard.pieces.Color;
 import com.chess.server.common.request.Host;
 import com.chess.server.common.request.Join;
 import com.chess.server.common.response.Error;

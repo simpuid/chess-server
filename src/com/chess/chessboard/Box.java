@@ -1,6 +1,6 @@
-package com.chess.server.chessboard;
+package com.chess.chessboard;
 
-import com.chess.server.chessboard.pieces.Piece;
+import com.chess.chessboard.pieces.Piece;
 import com.chess.server.common.Position;
 
 public class Box {

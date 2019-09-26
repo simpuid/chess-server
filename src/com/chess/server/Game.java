@@ -1,6 +1,6 @@
 package com.chess.server;
 
-import com.chess.server.chessboard.pieces.Color;
+import com.chess.chessboard.pieces.Color;
 import com.chess.server.common.moves.Move;
 import com.chess.server.common.results.GameFinished;
 import com.chess.server.common.results.InvalidMove;

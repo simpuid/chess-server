@@ -1,6 +1,6 @@
 package com.chess.server;
 
-import com.chess.server.chessboard.ChessBoard;
+import com.chess.chessboard.ChessBoard;
 import com.chess.server.common.moves.Move;
 import com.chess.server.common.request.Host;
 import com.chess.server.common.request.Join;
@@ -12,19 +12,19 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-class Server {
+public class Server {
     private IdGenerator idGenerator;
     public ChessBoard board;
     public Map<Integer, Game> map = Collections.synchronizedMap(new HashMap<Integer, Game>(16));
     private ServerSocket serverSocket;
 
-    Server(int port) throws Exception {
+    public Server(int port) throws Exception {
         idGenerator = new IdGenerator();
         board = new ChessBoard();
         serverSocket = new ServerSocket(port);
     }
 
-    void run() {
+    public void run() {
         Test test = new Test();
         test.test(test.testParsers());
         while (true) {
