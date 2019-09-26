@@ -21,12 +21,4 @@ public class GameFinished extends Result {
         Encoder.write("result finish", builder);
         Encoder.write(winner, builder);
     }
-
-    @Override
-    public String encode() {
-        if (winner == Color.WHITE)
-            return "result finish white";
-        else
-            return "result finish black";
-    }
 }

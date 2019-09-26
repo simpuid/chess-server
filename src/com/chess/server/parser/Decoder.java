@@ -4,10 +4,13 @@ import com.chess.server.chessboard.pieces.Color;
 import com.chess.server.chessboard.pieces.PieceType;
 import com.chess.server.common.Position;
 import com.chess.server.common.moves.*;
-import com.chess.server.common.results.GameFinished;
-import com.chess.server.common.results.InvalidMove;
-import com.chess.server.common.results.Result;
-import com.chess.server.common.results.StateChange;
+import com.chess.server.common.request.Host;
+import com.chess.server.common.request.Join;
+import com.chess.server.common.request.Request;
+import com.chess.server.common.response.Error;
+import com.chess.server.common.response.Response;
+import com.chess.server.common.response.Success;
+import com.chess.server.common.results.*;
 
 import java.util.Scanner;
 
@@ -91,6 +94,42 @@ public class Decoder {
                 return new GameFinished(scanner);
             if (header.equals("change"))
                 return new StateChange(scanner);
+            if (header.equals("turn"))
+                return new SetTurn(scanner);
+            else
+                return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Response decodeResponse(String input) {
+        try {
+            Scanner scanner = new Scanner(input);
+            if (!readString(scanner).equals("response"))
+                return null;
+            String header = readString(scanner);
+            if (header.equals("error"))
+                return new Error(scanner);
+            if (header.equals("success"))
+                return new Success(scanner);
+            else
+                return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Request decodeRequest(String input) {
+        try {
+            Scanner scanner = new Scanner(input);
+            if (!readString(scanner).equals("request"))
+                return null;
+            String header = readString(scanner);
+            if (header.equals("host"))
+                return new Host(scanner);
+            if (header.equals("join"))
+                return new Join(scanner);
             else
                 return null;
         } catch (Exception e) {

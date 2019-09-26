@@ -4,6 +4,12 @@ import com.chess.server.chessboard.pieces.Color;
 import com.chess.server.chessboard.pieces.PieceType;
 import com.chess.server.common.Position;
 import com.chess.server.common.moves.*;
+import com.chess.server.common.request.Host;
+import com.chess.server.common.request.Join;
+import com.chess.server.common.request.Request;
+import com.chess.server.common.response.Error;
+import com.chess.server.common.response.Response;
+import com.chess.server.common.response.Success;
 import com.chess.server.common.results.*;
 import com.chess.server.parser.Decoder;
 import com.chess.server.parser.Encoder;
@@ -19,6 +25,8 @@ public class Test {
         String s = Encoder.encode(move);
         Move mMove = Decoder.decodeMove(s);
         String s2 = Encoder.encode(mMove);
+        System.out.println(s);
+        System.out.println(s2);
         return s.equals(s2);
     }
 
@@ -26,6 +34,27 @@ public class Test {
         String s = Encoder.encode(result);
         Result result1 = Decoder.decodeResult(s);
         String s2 = Encoder.encode(result1);
+        System.out.println(s);
+        System.out.println(s2);
+
+        return s.equals(s2);
+    }
+
+    public boolean testRequest(Request request) {
+        String s = Encoder.encode(request);
+        Request request1 = Decoder.decodeRequest(s);
+        String s2 = Encoder.encode(request1);
+        System.out.println(s);
+        System.out.println(s2);
+        return s.equals(s2);
+    }
+
+    public boolean testResponse(Response response) {
+        String s = Encoder.encode(response);
+        Response response1 = Decoder.decodeResponse(s);
+        String s2 = Encoder.encode(response1);
+        System.out.println(s);
+        System.out.println(s2);
         return s.equals(s2);
     }
 
@@ -42,7 +71,15 @@ public class Test {
         deltas.add(new Delta(3, 4));
         deltas.add(new Delta(5, 6));
         Result r3 = new StateChange(deltas);
+        Result r4 = new SetTurn(Color.BLACK);
 
-        return testMove(m) && testMove(m1) && testMove(m2) && testMove(m3) && testResult(r) && testResult(r2) && testResult(r3);
+        Request req1 = new Host();
+        Request req2 = new Join(5);
+
+        Response res1 = new Success(5, Color.WHITE);
+        Response res2 = new Error();
+
+
+        return testMove(m) && testMove(m1) && testMove(m2) && testMove(m3) && testResult(r) && testResult(r2) && testResult(r3) && testResult(r4) && testRequest(req1) && testRequest(req2) && testResponse(res1) && testResponse(res2);
     }
 }

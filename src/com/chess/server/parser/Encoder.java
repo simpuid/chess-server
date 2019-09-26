@@ -4,6 +4,8 @@ import com.chess.server.chessboard.pieces.Color;
 import com.chess.server.chessboard.pieces.PieceType;
 import com.chess.server.common.Position;
 import com.chess.server.common.moves.Move;
+import com.chess.server.common.request.Request;
+import com.chess.server.common.response.Response;
 import com.chess.server.common.results.Result;
 
 public class Encoder {
@@ -63,6 +65,20 @@ public class Encoder {
         StringBuilder builder = new StringBuilder();
         if (result != null)
             result.write(builder);
+        return builder.toString();
+    }
+
+    public static String encode(Response response) {
+        StringBuilder builder = new StringBuilder();
+        if (response != null)
+            response.write(builder);
+        return builder.toString();
+    }
+
+    public static String encode(Request request) {
+        StringBuilder builder = new StringBuilder();
+        if (request != null)
+            request.write(builder);
         return builder.toString();
     }
 }

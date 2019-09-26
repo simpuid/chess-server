@@ -5,7 +5,7 @@ import com.chess.client.Client;
 public class Main {
 
     public static void argumentError() {
-        System.out.println("error:wrong arguments");
+        System.out.println("argument error");
     }
 
     public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class Main {
                 Server server = new Server(Integer.parseInt(args[1]));
                 server.run();
             } catch (Exception e) {
-                argumentError();
+                System.out.println("server creation error");
                 return;
             }
         } else if (args[0].equals("client")) {
@@ -38,7 +38,7 @@ public class Main {
                     client = new Client(args[1], Integer.parseInt(args[2]));
                 client.run();
             } catch (Exception e) {
-                argumentError();
+                System.out.println("client creation error");
                 return;
             }
         } else {
