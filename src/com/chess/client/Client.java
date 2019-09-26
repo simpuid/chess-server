@@ -1,11 +1,14 @@
 package com.chess.client;
 
 public class Client {
-    public Client() {
+    public Client(String address, int port) {
 
     }
 
-    void run() {
+    public Client(String address, int port, int gameID) {
 
+    }
+
+    public void run() {
     }
 }

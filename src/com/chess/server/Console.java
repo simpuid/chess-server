@@ -8,8 +8,7 @@ import com.chess.server.parser.Encoder;
 import java.util.Scanner;
 
 public class Console {
-    void run() {
-        Server server = new Server();
+    void run(Server server) {
         Scanner scanner = new Scanner(System.in);
         boolean quit = false;
         while (!quit) {

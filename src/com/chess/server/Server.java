@@ -19,7 +19,7 @@ class Server {
         System.out.println(board.lineTest(new Position(2, 1), new Position(2, 6)));
         board.print();
         Console console = new Console();
-        console.run();
+        console.run(this);
     }
 
     Result getResult(Move move) {
