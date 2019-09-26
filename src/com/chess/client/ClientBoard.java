@@ -1,8 +1,5 @@
 package com.chess.client;
 
-import com.chess.server.common.moves.Move;
-import com.chess.server.common.moves.MoveNormal;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -101,9 +98,6 @@ public class ClientBoard extends JFrame {
         }
     }
 
-    private Move generateMove(int source, int destination) {
-        MoveNormal moveNormal = new MoveNormal();
-    }
 
     public void displayBoard() {
         try {

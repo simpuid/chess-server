@@ -25,11 +25,6 @@ class Server {
     }
 
     void run() {
-//        ChessBoard board = new ChessBoard();
-//        System.out.println(board.lineTest(new Position(2, 1), new Position(2, 6)));
-//        board.print();
-//        Console console = new Console();
-//        console.run(this);
         Test test = new Test();
         test.test(test.testParsers());
         while (true) {
@@ -54,8 +49,9 @@ class Server {
         } else if (request instanceof Join) {
             int id = ((Join) request).gameId;
             if (map.containsKey(id)) {
-                System.out.println("found game");
                 Game g = map.get(id);
+                if (g.isFull())
+                    return null;
                 g.setVisitor(player);
                 return g;
             } else {

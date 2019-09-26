@@ -50,6 +50,10 @@ public class Game {
         }
     }
 
+    public boolean isFull() {
+        return visitor != null;
+    }
+
     public void close() {
         if (host != null)
             host.close();
