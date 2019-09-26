@@ -6,3 +6,6 @@
 #	move terminate <gameId> <color> <timeStamp>
 #	move castle <gameId> <color> <timeStamp> <kingId> <kingSource> <kingDestination> <rookId> <rookSource> <rookDestination>
 #	move upgrade <gameId> <color> <timeStamp> <pieceId> <source> <destination> <pieceType>
+
+#   game create
+#   game join <gameID>
