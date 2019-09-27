@@ -4,6 +4,7 @@ import com.chess.chessboard.ChessBoard;
 import com.chess.chessboard.pieces.Color;
 import com.chess.chessboard.pieces.*;
 import com.chess.common.Position;
+import com.chess.common.Position;
 import com.chess.common.moves.Move;
 import com.chess.common.results.Result;
 
@@ -11,6 +12,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import com.chess.chessboard.pieces.Color;
+import com.chess.common.moves.MoveNormal;
 
 public class ClientBoard extends JFrame {
 
@@ -84,25 +88,22 @@ public class ClientBoard extends JFrame {
                 toggleButton[value].setFont(new Font("Ubuntu", 1, 18));
                 toggleButton[value].setHorizontalAlignment(SwingConstants.CENTER);
                 toggleButton[value].setText("Box" + value);
-                toggleButton[value].addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent actionEvent) {
-                        buttonClicked(actionEvent, value);
-                    }
-                });
+                toggleButton[value].addActionListener(actionEvent -> buttonClicked(value));
                 board.add(toggleButton[value]);
             }
         }
         pack();
     }
 
-    private void buttonClicked(ActionEvent actionEvent, int boxID) {
+    private void buttonClicked(int boxID) {
         if (!isSecondClick) {
             isSecondClick = true;
             lastclickButton = boxID;
-            toggleButton[boxID].setText("First");
+            toggleButton[boxID].setBackground(new java.awt.Color(255, 255, 51));
         } else {
-            toggleButton[boxID].setText("Second");
+            toggleButton[boxID].setBackground(new java.awt.Color(255, 255, 51));
+            Move move = generateMove(lastclickButton, boxID);
+            client.sendMove(move);
             disableBoard();
         }
     }
@@ -110,6 +111,12 @@ public class ClientBoard extends JFrame {
     private void disableBoard() {
         for (int i = 0; i < 64; i++) {
             toggleButton[i].setEnabled(false);
+        }
+    }
+
+    public void enableBoard() {
+        for (int i = 0; i < 64; i++) {
+            toggleButton[i].setEnabled(true);
         }
     }
 
@@ -141,7 +148,8 @@ public class ClientBoard extends JFrame {
     }
 
     private Move generateMove(int source, int destination) {
-        return null;
+        MoveNormal moveNormal = new MoveNormal(color, gameID, 0, 0, new Position(source), new Position(destination));
+        return moveNormal;
     }
 
     public void processResult(Result result) {
