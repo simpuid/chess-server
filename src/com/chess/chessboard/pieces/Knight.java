@@ -1,4 +1,4 @@
-package com.chess.server.chessboard.pieces;
+package com.chess.chessboard.pieces;
 
 import com.chess.server.common.Position;
 

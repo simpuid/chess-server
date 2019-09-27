@@ -1,6 +1,6 @@
 package com.chess.server.common.results;
 
-import com.chess.server.chessboard.pieces.Color;
+import com.chess.chessboard.pieces.Color;
 import com.chess.server.parser.Decoder;
 import com.chess.server.parser.Encoder;
 

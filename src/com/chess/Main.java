@@ -1,6 +1,7 @@
-package com.chess.server;
+package com.chess;
 
 import com.chess.client.Client;
+import com.chess.server.Server;
 
 public class Main {
 

@@ -1,6 +1,6 @@
-package com.chess.server.chessboard;
+package com.chess.chessboard;
 
-import com.chess.server.chessboard.pieces.*;
+import com.chess.chessboard.pieces.*;
 import com.chess.server.common.Position;
 import com.chess.server.common.moves.Move;
 import com.chess.server.common.moves.MoveNormal;
