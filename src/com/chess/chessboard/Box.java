@@ -1,7 +1,7 @@
 package com.chess.chessboard;
 
 import com.chess.chessboard.pieces.Piece;
-import com.chess.server.common.Position;
+import com.chess.common.Position;
 
 public class Box {
     public Piece piece;

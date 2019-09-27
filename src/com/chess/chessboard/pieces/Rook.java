@@ -1,9 +1,9 @@
 package com.chess.chessboard.pieces;
 
 import com.chess.chessboard.ChessBoard;
-import com.chess.server.common.Position;
-import com.chess.server.common.moves.MoveCastle;
-import com.chess.server.common.moves.MoveNormal;
+import com.chess.common.Position;
+import com.chess.common.moves.MoveCastle;
+import com.chess.common.moves.MoveNormal;
 
 public class Rook extends Piece {
     public Rook(Color color, int pieceID, Position boxID, PieceType type) {

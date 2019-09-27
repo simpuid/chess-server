@@ -1,36 +1,41 @@
-package com.chess.server.common.moves;
+package com.chess.common.moves;
 
 import com.chess.chessboard.pieces.Color;
-import com.chess.server.common.Position;
-import com.chess.server.parser.Decoder;
-import com.chess.server.parser.Encoder;
+import com.chess.chessboard.pieces.PieceType;
+import com.chess.common.Position;
+import com.chess.parser.Decoder;
+import com.chess.parser.Encoder;
 
 import java.util.Scanner;
 
-public class MoveNormal extends Move {
+public class MoveUpgrade extends Move {
     public int pieceId;
     public Position source;
     public Position destination;
+    public PieceType upgradeUnit;
 
-    public MoveNormal(Color color, int gameId, int timeStamp, int pieceId, Position source, Position destination) {
+    public MoveUpgrade(Color color, int gameId, int timeStamp, int pieceId, Position source, Position destination, PieceType upgradeUnit) {
         super(gameId, color, timeStamp);
         this.pieceId = pieceId;
         this.source = source;
         this.destination = destination;
+        this.upgradeUnit = upgradeUnit;
     }
 
-    public MoveNormal(Scanner scanner) throws Exception {
+    public MoveUpgrade(Scanner scanner) throws Exception {
         super(scanner);
         pieceId = Decoder.readInt(scanner);
         source = Decoder.readPosition(scanner);
         destination = Decoder.readPosition(scanner);
+        upgradeUnit = Decoder.readPieceType(scanner);
     }
 
     public void write(StringBuilder builder) {
-        Encoder.write("move normal", builder);
+        Encoder.write("move upgrade", builder);
         super.write(builder);
         Encoder.write(pieceId, builder);
         Encoder.write(source, builder);
         Encoder.write(destination, builder);
+        Encoder.write(upgradeUnit, builder);
     }
 }

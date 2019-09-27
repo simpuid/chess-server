@@ -1,14 +1,13 @@
 package com.chess.client;
 
-import com.chess.server.common.moves.Move;
-import com.chess.server.common.moves.MoveNormal;
+import com.chess.common.moves.Move;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.chess.server.chessboard.pieces.Color;
+import com.chess.chessboard.pieces.Color;
 public class ClientBoard extends JFrame {
 
     private int lastclickButton;
@@ -16,7 +15,7 @@ public class ClientBoard extends JFrame {
     private Color color;
     private int gameID;
 
-    public ClientBoard(com.chess.server.chessboard.pieces.Color color, int gameID) {
+    public ClientBoard(com.chess.chessboard.pieces.Color color, int gameID) {
         initComponents();
         this.color = color;
         this.gameID = gameID;

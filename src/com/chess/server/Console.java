@@ -1,9 +1,9 @@
 package com.chess.server;
 
-import com.chess.server.common.moves.Move;
-import com.chess.server.common.results.Result;
-import com.chess.server.parser.Decoder;
-import com.chess.server.parser.Encoder;
+import com.chess.common.moves.Move;
+import com.chess.common.results.Result;
+import com.chess.parser.Decoder;
+import com.chess.parser.Encoder;
 
 import java.util.Scanner;
 

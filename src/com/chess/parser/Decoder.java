@@ -1,16 +1,16 @@
-package com.chess.server.parser;
+package com.chess.parser;
 
 import com.chess.chessboard.pieces.Color;
 import com.chess.chessboard.pieces.PieceType;
-import com.chess.server.common.Position;
-import com.chess.server.common.moves.*;
-import com.chess.server.common.request.Host;
-import com.chess.server.common.request.Join;
-import com.chess.server.common.request.Request;
-import com.chess.server.common.response.Error;
-import com.chess.server.common.response.Response;
-import com.chess.server.common.response.Success;
-import com.chess.server.common.results.*;
+import com.chess.common.Position;
+import com.chess.common.moves.*;
+import com.chess.common.request.Host;
+import com.chess.common.request.Join;
+import com.chess.common.request.Request;
+import com.chess.common.response.Error;
+import com.chess.common.response.Response;
+import com.chess.common.response.Success;
+import com.chess.common.results.*;
 
 import java.util.Scanner;
 

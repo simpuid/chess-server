@@ -1,14 +1,14 @@
 package com.chess.client;
 
 import com.chess.chessboard.pieces.Color;
-import com.chess.server.common.request.Host;
-import com.chess.server.common.request.Join;
-import com.chess.server.common.response.Error;
-import com.chess.server.common.response.Response;
-import com.chess.server.common.response.Success;
-import com.chess.server.common.results.Result;
-import com.chess.server.parser.Decoder;
-import com.chess.server.parser.Encoder;
+import com.chess.common.request.Host;
+import com.chess.common.request.Join;
+import com.chess.common.response.Error;
+import com.chess.common.response.Response;
+import com.chess.common.response.Success;
+import com.chess.common.results.Result;
+import com.chess.parser.Decoder;
+import com.chess.parser.Encoder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-package com.chess.server.common;
+package com.chess.common;
 
 public class Position {
     public int x;

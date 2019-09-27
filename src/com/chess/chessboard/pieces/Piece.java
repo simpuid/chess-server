@@ -1,10 +1,10 @@
 package com.chess.chessboard.pieces;
 
 import com.chess.chessboard.ChessBoard;
-import com.chess.server.common.Position;
-import com.chess.server.common.moves.MoveNormal;
-import com.chess.server.common.results.Delta;
-import com.chess.server.common.results.StateChange;
+import com.chess.common.Position;
+import com.chess.common.moves.MoveNormal;
+import com.chess.common.results.Delta;
+import com.chess.common.results.StateChange;
 
 public class Piece {
     public Color color;

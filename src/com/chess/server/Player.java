@@ -1,13 +1,13 @@
 package com.chess.server;
 
-import com.chess.server.common.moves.Move;
-import com.chess.server.common.request.Request;
-import com.chess.server.common.response.Error;
-import com.chess.server.common.response.Success;
-import com.chess.server.common.results.InvalidMove;
-import com.chess.server.common.results.Result;
-import com.chess.server.parser.Decoder;
-import com.chess.server.parser.Encoder;
+import com.chess.common.moves.Move;
+import com.chess.common.request.Request;
+import com.chess.common.response.Error;
+import com.chess.common.response.Success;
+import com.chess.common.results.InvalidMove;
+import com.chess.common.results.Result;
+import com.chess.parser.Decoder;
+import com.chess.parser.Encoder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

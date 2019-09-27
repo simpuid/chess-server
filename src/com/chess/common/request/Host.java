@@ -1,6 +1,6 @@
-package com.chess.server.common.request;
+package com.chess.common.request;
 
-import com.chess.server.parser.Encoder;
+import com.chess.parser.Encoder;
 
 import java.util.Scanner;
 

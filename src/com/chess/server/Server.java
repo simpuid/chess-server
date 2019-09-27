@@ -1,11 +1,11 @@
 package com.chess.server;
 
 import com.chess.chessboard.ChessBoard;
-import com.chess.server.common.moves.Move;
-import com.chess.server.common.request.Host;
-import com.chess.server.common.request.Join;
-import com.chess.server.common.request.Request;
-import com.chess.server.common.results.Result;
+import com.chess.common.moves.Move;
+import com.chess.common.request.Host;
+import com.chess.common.request.Join;
+import com.chess.common.request.Request;
+import com.chess.common.results.Result;
 
 import java.net.ServerSocket;
 import java.util.Collections;

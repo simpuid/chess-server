@@ -1,4 +1,4 @@
-package com.chess.server.common.results;
+package com.chess.common.results;
 
 public abstract class Result {
     public abstract void write(StringBuilder builder);

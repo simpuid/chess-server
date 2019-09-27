@@ -1,10 +1,10 @@
 package com.chess.server;
 
 import com.chess.chessboard.pieces.Color;
-import com.chess.server.common.moves.Move;
-import com.chess.server.common.results.GameFinished;
-import com.chess.server.common.results.InvalidMove;
-import com.chess.server.parser.Encoder;
+import com.chess.common.moves.Move;
+import com.chess.common.results.GameFinished;
+import com.chess.common.results.InvalidMove;
+import com.chess.parser.Encoder;
 
 public class Game {
     Player host;

@@ -1,6 +1,6 @@
 package com.chess.chessboard.pieces;
 
-import com.chess.server.common.Position;
+import com.chess.common.Position;
 
 public class Knight extends Piece {
     public Knight(Color color, int pieceID, Position boxID,PieceType type) {

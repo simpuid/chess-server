@@ -1,12 +1,12 @@
-package com.chess.server.parser;
+package com.chess.parser;
 
 import com.chess.chessboard.pieces.Color;
 import com.chess.chessboard.pieces.PieceType;
-import com.chess.server.common.Position;
-import com.chess.server.common.moves.Move;
-import com.chess.server.common.request.Request;
-import com.chess.server.common.response.Response;
-import com.chess.server.common.results.Result;
+import com.chess.common.Position;
+import com.chess.common.moves.Move;
+import com.chess.common.request.Request;
+import com.chess.common.response.Response;
+import com.chess.common.results.Result;
 
 public class Encoder {
 

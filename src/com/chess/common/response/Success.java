@@ -1,8 +1,8 @@
-package com.chess.server.common.response;
+package com.chess.common.response;
 
 import com.chess.chessboard.pieces.Color;
-import com.chess.server.parser.Decoder;
-import com.chess.server.parser.Encoder;
+import com.chess.parser.Decoder;
+import com.chess.parser.Encoder;
 
 import java.util.Scanner;
 

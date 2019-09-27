@@ -1,13 +1,13 @@
 package com.chess.chessboard;
 
 import com.chess.chessboard.pieces.*;
-import com.chess.server.common.Position;
-import com.chess.server.common.moves.Move;
-import com.chess.server.common.moves.MoveNormal;
-import com.chess.server.common.moves.MoveTerminate;
-import com.chess.server.common.results.GameFinished;
-import com.chess.server.common.results.InvalidMove;
-import com.chess.server.common.results.Result;
+import com.chess.common.Position;
+import com.chess.common.moves.Move;
+import com.chess.common.moves.MoveNormal;
+import com.chess.common.moves.MoveTerminate;
+import com.chess.common.results.GameFinished;
+import com.chess.common.results.InvalidMove;
+import com.chess.common.results.Result;
 
 public class ChessBoard {
     public Box[][] boxArray;

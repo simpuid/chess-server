@@ -1,6 +1,6 @@
-package com.chess.server.common.results;
+package com.chess.common.results;
 
-import com.chess.server.parser.Encoder;
+import com.chess.parser.Encoder;
 
 import java.util.ArrayList;
 import java.util.Scanner;
