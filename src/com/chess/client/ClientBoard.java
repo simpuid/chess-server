@@ -1,20 +1,25 @@
 package com.chess.client;
 
 import com.chess.server.common.moves.Move;
+import com.chess.server.common.moves.MoveNormal;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
+import com.chess.server.chessboard.pieces.Color;
 public class ClientBoard extends JFrame {
 
     private int lastclickButton;
     private boolean isSecondClick;
+    private Color color;
+    private int gameID;
 
-    public ClientBoard() {
+    public ClientBoard(com.chess.server.chessboard.pieces.Color color, int gameID) {
         initComponents();
+        this.color = color;
+        this.gameID = gameID;
     }
 
     private void initComponents() {
@@ -119,7 +124,7 @@ public class ClientBoard extends JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ClientBoard().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> this.setVisible(true));
     }
 
     private JLabel nameLabel;

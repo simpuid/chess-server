@@ -87,7 +87,7 @@ public class Client {
 
     public void run() {
         System.out.println("hello");
-        ClientBoard clientBoard = new ClientBoard();
+        ClientBoard clientBoard = new ClientBoard(color, gameId);
         System.out.println("hello");
         clientBoard.displayBoard();
         System.out.println("hello");
