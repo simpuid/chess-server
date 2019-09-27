@@ -25,8 +25,6 @@ public class Server {
     }
 
     public void run() {
-        Test test = new Test();
-        test.test(test.testParsers());
         while (true) {
             try {
                 Player player = new Player(serverSocket.accept(), this);

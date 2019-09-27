@@ -132,10 +132,17 @@ public class ClientBoard extends JFrame {
     private void updateBoard() {
         for (int i = 0; i < 64; i++) {
             Position position = new Position(i);
+            toggleButton[i].setBackground(new java.awt.Color(0.5f, 0.5f, 0.5f));
             if ((chessBoard.boxArray[position.x][position.y].piece) != null) {
-                toggleButton[i].setText(getDisplayName(chessBoard.boxArray[position.x][position.y].piece));
+                Piece p = chessBoard.boxArray[position.x][position.y].piece;
+                toggleButton[i].setText(getDisplayName(p));
+                if (p.color == Color.BLACK) {
+                    toggleButton[i].setForeground(new java.awt.Color(0f, 0f, 0f));
+                } else {
+                    toggleButton[i].setForeground(new java.awt.Color(1f, 1f, 1f));
+                }
             } else {
-                toggleButton[i].setText("empty");
+                toggleButton[i].setText("");
             }
         }
     }
