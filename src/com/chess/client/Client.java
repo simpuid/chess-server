@@ -1,6 +1,7 @@
 package com.chess.client;
 
 import com.chess.chessboard.pieces.Color;
+import com.chess.common.moves.Move;
 import com.chess.common.request.Host;
 import com.chess.common.request.Join;
 import com.chess.common.response.Error;
@@ -14,7 +15,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
     private Socket socket;
@@ -22,12 +22,14 @@ public class Client {
     private BufferedReader in;
     private int gameId;
     private Color color;
+    ClientBoard clientBoard;
 
     public Client(String address, int port) throws Exception {
-
         createSocket(address, port);
         out.println(Encoder.encode(new Host()));
         readResponse();
+        clientBoard = new ClientBoard(color, gameId, this);
+        clientBoard.displayBoard();
     }
 
     public Client(String address, int port, int gameID) throws Exception {
@@ -35,6 +37,12 @@ public class Client {
         createSocket(address, port);
         out.println(Encoder.encode(new Join(gameID)));
         readResponse();
+        clientBoard = new ClientBoard(color, gameId, this);
+        clientBoard.displayBoard();
+    }
+
+    public void sendMove(Move move) {
+        out.println(Encoder.encode(move));
     }
 
     public void createSocket(String address, int port) throws Exception {
@@ -64,9 +72,12 @@ public class Client {
             in.close();
             out.close();
             socket.close();
+            System.out.println("disconnected");
         } catch (Exception e) {
 
         }
+        clientBoard.setVisible(false);
+        clientBoard.dispose();
     }
 
     public void receiveCycle() {
@@ -74,25 +85,15 @@ public class Client {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 Result result = Decoder.decodeResult(inputLine);
-                System.out.println("result" + Encoder.encode(result));
+                clientBoard.processResult(result);
             }
             disconnect();
-            System.out.println("player disconnected");
         } catch (Exception e) {
-            System.out.println("player disconnected");
-        } finally {
             disconnect();
         }
     }
 
     public void run() {
-        System.out.println("hello");
-        ClientBoard clientBoard = new ClientBoard(color, gameId);
-        System.out.println("hello");
-        clientBoard.displayBoard();
-        System.out.println("hello");
         receiveCycle();
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextInt();
     }
 }

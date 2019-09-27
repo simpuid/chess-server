@@ -1,24 +1,33 @@
 package com.chess.client;
 
+import com.chess.chessboard.ChessBoard;
+import com.chess.chessboard.pieces.Color;
+import com.chess.chessboard.pieces.*;
+import com.chess.common.Position;
 import com.chess.common.moves.Move;
+import com.chess.common.results.Result;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.chess.chessboard.pieces.Color;
 public class ClientBoard extends JFrame {
 
     private int lastclickButton;
     private boolean isSecondClick;
     private Color color;
     private int gameID;
+    private ChessBoard chessBoard;
+    private Client client;
 
-    public ClientBoard(com.chess.chessboard.pieces.Color color, int gameID) {
+    public ClientBoard(com.chess.chessboard.pieces.Color color, int gameID, Client client) {
         initComponents();
         this.color = color;
         this.gameID = gameID;
+        chessBoard = new ChessBoard();
+        this.client = client;
+        updateBoard();
     }
 
     private void initComponents() {
@@ -85,7 +94,6 @@ public class ClientBoard extends JFrame {
             }
         }
         pack();
-
     }
 
     private void buttonClicked(ActionEvent actionEvent, int boxID) {
@@ -105,8 +113,39 @@ public class ClientBoard extends JFrame {
         }
     }
 
+    private String getDisplayName(Piece piece) {
+        if (piece instanceof Rook)
+            return "rook";
+        if (piece instanceof Bishop)
+            return "bishop";
+        if (piece instanceof Knight)
+            return "knight";
+        if (piece instanceof King)
+            return "king";
+        if (piece instanceof Pawn)
+            return "pawn";
+        if (piece instanceof Queen)
+            return "queen";
+        return "";
+    }
+
+    private void updateBoard() {
+        for (int i = 0; i < 64; i++) {
+            Position position = new Position(i);
+            if ((chessBoard.boxArray[position.x][position.y].piece) != null) {
+                toggleButton[i].setText(getDisplayName(chessBoard.boxArray[position.x][position.y].piece));
+            } else {
+                toggleButton[i].setText("empty");
+            }
+        }
+    }
+
     private Move generateMove(int source, int destination) {
         return null;
+    }
+
+    public void processResult(Result result) {
+
     }
 
     public void displayBoard() {
