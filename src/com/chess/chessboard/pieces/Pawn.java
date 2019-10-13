@@ -292,8 +292,7 @@ public class Pawn extends Piece {
             Delta delta = new Delta(move.pieceId, xd + yd * 8);
             change.deltas.add(delta);
             if (xd != xs) {
-                int pid;
-                pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                int pid = chessBoard.boxArray[xd][ys].piece.pieceID;
                 chessBoard.pieceArray[pid].boxID = new Position(64);
                 chessBoard.boxArray[xd][ys].piece = null;
                 change.deltas.add(new Delta(pid, 64));

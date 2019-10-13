@@ -7,7 +7,7 @@ import com.chess.parser.Encoder;
 import java.util.Scanner;
 
 public class SetTurn extends Result {
-    Color color;
+    public Color color;
 
     public SetTurn(Color color) {
         this.color = color;

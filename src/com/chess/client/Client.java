@@ -77,9 +77,9 @@ public class Client {
 
     public void disconnect() {
         try {
+            socket.close();
             in.close();
             out.close();
-            socket.close();
             System.out.println("disconnected");
         } catch (Exception e) {
 
