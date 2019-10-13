@@ -22,7 +22,15 @@ public class Piece {
     }
 
     public boolean checkValid(MoveNormal move, ChessBoard chessBoard) {
-        return false;
+        if (chessBoard.getPiece(move.destination.x, move.destination.y) != null)
+            return chessBoard.getPiece(move.destination.x, move.destination.y).color != color;
+        else
+            return true;
+    }
+
+    protected int sign(int x) {
+        if (x == 0) return 0;
+        return x > 0 ? 1 : -1;
     }
 
     public PieceType getType() {

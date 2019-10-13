@@ -16,10 +16,14 @@ public class King extends Piece {
     }
 
     public boolean checkValid(MoveNormal move, ChessBoard chessBoard) {
-        int xs=move.source.x;
-        int ys=move.source.y;
-        int xd=move.destination.x;
-        int yd=move.destination.y;
-        return true;
+        if (!super.checkValid(move, chessBoard))
+            return false;
+        int sx = move.source.x, sy = move.source.y;
+        int dx = move.destination.x, dy = move.destination.y;
+        int absX = Math.abs(dx - sx), absY = Math.abs(dy - sy);
+        int signX = sign(dx - sx), signY = sign(dy - sy);
+        if (absX > 1 || absY > 1)
+            return false;
+        return signX != 0 || signY != 0;
     }
 }
