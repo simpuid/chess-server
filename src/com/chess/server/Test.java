@@ -63,8 +63,6 @@ public class Test {
         Move m1 = new MoveCastle(1, Color.WHITE, 2, 3, new Position(5, 5), new Position(6, 6), 4, new Position(7, 7), new Position(6, 6));
         Move m2 = new MoveTerminate(Color.BLACK, 1, 2);
         Move m3 = new MoveUpgrade(Color.WHITE, 2, 6, 7, new Position(4, 4), new Position(7, 6), PieceType.ROOK);
-
-        Result r = new InvalidMove();
         Result r2 = new GameFinished(Color.BLACK);
         ArrayList<Delta> deltas = new ArrayList<>();
         deltas.add(new Delta(1, 2));
@@ -80,6 +78,6 @@ public class Test {
         Response res2 = new Error();
 
 
-        return testMove(m) && testMove(m1) && testMove(m2) && testMove(m3) && testResult(r) && testResult(r2) && testResult(r3) && testResult(r4) && testRequest(req1) && testRequest(req2) && testResponse(res1) && testResponse(res2);
+        return testMove(m) && testMove(m1) && testMove(m2) && testMove(m3) && testResult(r2) && testResult(r3) && testResult(r4) && testRequest(req1) && testRequest(req2) && testResponse(res1) && testResponse(res2);
     }
 }
