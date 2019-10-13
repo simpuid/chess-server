@@ -24,14 +24,16 @@ public class ClientBoard extends JFrame {
     private Client client;
     public boolean isTurn;
 
-    public ClientBoard(com.chess.chessboard.pieces.Color color, int gameID, Client client) {
+    public ClientBoard(com.chess.chessboard.pieces.Color color, int gameID, Client client, boolean isTurn) {
         initComponents();
         this.color = color;
         this.gameID = gameID;
         chessBoard = new ChessBoard();
         this.client = client;
+        this.isTurn = isTurn;
         gameIDLabel.setText("GameID : " + gameID);
         updateBoard();
+        disableBoard();
     }
 
     private void initComponents() {
@@ -98,7 +100,7 @@ public class ClientBoard extends JFrame {
     private void buttonClicked(int boxID) {
         if (!isSecondClick) {
             Position p = new Position(boxID);
-            if (chessBoard.boxArray[p.x][p.y].piece == null) {
+            if ((chessBoard.boxArray[p.x][p.y].piece == null) || (chessBoard.boxArray[p.x][p.y].piece.color != color)) {
                 disableBoard();
                 enableBoard();
                 return;
@@ -221,23 +223,25 @@ public class ClientBoard extends JFrame {
 
     public void processResult(InvalidMove result) {
         System.out.println("Recieved InvalidMove");
-
-        JDialog dialog = new JDialog(this, "Invalid Move");
-        dialog.setSize(new Dimension(300, 100));
-        dialog.setLayout(new GridLayout(1, 1, 50, 10));
-        dialog.setVisible(true);
-        dialog.addFocusListener(new FocusAdapter() {
-            public void focusLost(FocusEvent evt) {
-                dialog.setVisible(false);
-                dialog.dispose();
-                enableBoard();
-            }
-        });
-
-        JLabel moveLabel = new JLabel("Invalid move.");
-        moveLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        moveLabel.setFont(new Font("Ubuntu", 1, 18));
-        dialog.add(moveLabel);
+        JOptionPane.showMessageDialog(null, color + " Invalid Move");
+//        JDialog moveDialog = new JDialog(this, "Invalid Move");
+//        moveDialog.setSize(new Dimension(300, 100));
+//        moveDialog.setLayout(new GridLayout(1, 1, 50, 10));
+//        moveDialog.setVisible(true);
+//
+//        JLabel moveLabel = new JLabel("Invalid move.");
+//        moveLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//        moveLabel.setFont(new Font("
+//        Ubuntu", 1, 18));
+//        moveDialog.add(moveLabel);
+//
+//        moveDialog.addFocusListener(new FocusAdapter() {
+//            public void focusLost(FocusEvent evt) {
+//                moveDialog.setVisible(false);
+//                moveDialog.dispose();
+//                enableBoard();
+//            }
+//        });
     }
 
     public void displayBoard() {
