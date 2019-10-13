@@ -148,7 +148,7 @@ public class ChessBoard {
             return evaluate((MoveTerminate) move);
         if (move instanceof MoveNormal)
             return evaluate((MoveNormal) move);
-        return new InvalidMove();
+        return new InvalidMove(currentColor);
     }
 
     public void movePiece(int sourcePos, int destinationPos) {
