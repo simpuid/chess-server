@@ -10,9 +10,6 @@ import com.chess.common.results.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.security.PublicKey;
 
 public class ClientBoard extends JFrame {
 
@@ -38,8 +35,8 @@ public class ClientBoard extends JFrame {
 
     private void initComponents() {
         nameLabel = new JLabel();
-        playerLabel1 = new JLabel();
-        playerLabel2 = new JLabel();
+        whiteLabel = new JLabel();
+        blackLabel = new JLabel();
         gameIDLabel = new JLabel();
         board = new JPanel();
         toggleButton = new JToggleButton[64];
@@ -58,17 +55,25 @@ public class ClientBoard extends JFrame {
         getContentPane().add(nameLabel);
         nameLabel.setBounds(5, 5, 895, 35);
 
-        playerLabel1.setFont(new Font("Ubuntu", 1, 18));
-        playerLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-        playerLabel1.setText("Player 1");
-        getContentPane().add(playerLabel1);
-        playerLabel1.setBounds(5, 45, 295, 30);
+        whiteLabel.setFont(new Font("Ubuntu", 1, 18));
+        whiteLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        whiteLabel.setText("Welcome");
+        whiteLabel.setForeground(new java.awt.Color(0, 0, 0));
+        whiteLabel.setBackground(new java.awt.Color(255, 255, 255));
+        whiteLabel.setBorder(BorderFactory.createLineBorder(java.awt.Color.black));
+        whiteLabel.setOpaque(true);
+        getContentPane().add(whiteLabel);
+        whiteLabel.setBounds(5, 45, 295, 30);
 
-        playerLabel2.setFont(new Font("Ubuntu", 1, 18));
-        playerLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-        playerLabel2.setText("Player 2");
-        getContentPane().add(playerLabel2);
-        playerLabel2.setBounds(305, 45, 295, 30);
+        blackLabel.setFont(new Font("Ubuntu", 1, 18));
+        blackLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        blackLabel.setText("Welcome");
+        blackLabel.setOpaque(true);
+        blackLabel.setForeground(new java.awt.Color(255, 255, 255));
+        whiteLabel.setBorder(BorderFactory.createLineBorder(java.awt.Color.white));
+        blackLabel.setBackground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(blackLabel);
+        blackLabel.setBounds(305, 45, 295, 30);
 
         gameIDLabel.setFont(new Font("Ubuntu", 1, 18));
         gameIDLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -173,23 +178,14 @@ public class ClientBoard extends JFrame {
 
     public void processResult(GameFinished result) {
         System.out.println(result.winner + " wins.");
-        JDialog endDialog = new JDialog(this, "Game Finished");
-        JLabel resultLabel = new JLabel(result.winner + " wins.");
-        endDialog.add(resultLabel);
-        JButton endButton = new JButton("OK");
-        endDialog.add(endButton);
-        endDialog.setSize(new Dimension(300, 100));
-        resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        endDialog.setLayout(new GridLayout(1, 2, 40, 1));
-        resultLabel.setFont(new Font("Ubuntu", 1, 18));
-        endButton.setFont((new Font("Ubuntu", 1, 18)));
-        endButton.addActionListener(actionEvent -> dialogClose(endDialog));
-        endDialog.setVisible(true);
-    }
-
-    public void dialogClose(JDialog dialog) {
-        dialog.setVisible(false);
-        dialog.dispose();
+        JOptionPane.showMessageDialog(null, result.winner + " wins");
+        if (result.winner == Color.BLACK) {
+            blackLabel.setText("You win.");
+            blackLabel.setBackground(new java.awt.Color(0, 255, 0));
+        } else {
+            whiteLabel.setText("You win.");
+            whiteLabel.setBackground(new java.awt.Color(0, 255, 0));
+        }
         client.disconnect();
     }
 
@@ -219,29 +215,35 @@ public class ClientBoard extends JFrame {
             isTurn = false;
             disableBoard();
         }
+        if (result.color == Color.BLACK) {
+            blackLabel.setText("Your turn");
+            blackLabel.setForeground(new java.awt.Color(255, 255, 0));
+            whiteLabel.setText("Please Wait");
+            whiteLabel.setForeground(new java.awt.Color(0, 255, 0));
+        } else {
+            whiteLabel.setText("Your turn");
+            whiteLabel.setForeground(new java.awt.Color(255, 255, 0));
+            blackLabel.setText("Please Wait");
+            blackLabel.setForeground(new java.awt.Color(0, 255, 0));
+        }
     }
 
     public void processResult(InvalidMove result) {
         System.out.println("Recieved InvalidMove");
-        JOptionPane.showMessageDialog(null, color + " Invalid Move");
-//        JDialog moveDialog = new JDialog(this, "Invalid Move");
-//        moveDialog.setSize(new Dimension(300, 100));
-//        moveDialog.setLayout(new GridLayout(1, 1, 50, 10));
-//        moveDialog.setVisible(true);
-//
-//        JLabel moveLabel = new JLabel("Invalid move.");
-//        moveLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//        moveLabel.setFont(new Font("
-//        Ubuntu", 1, 18));
-//        moveDialog.add(moveLabel);
-//
-//        moveDialog.addFocusListener(new FocusAdapter() {
-//            public void focusLost(FocusEvent evt) {
-//                moveDialog.setVisible(false);
-//                moveDialog.dispose();
-//                enableBoard();
-//            }
-//        });
+        if (result.color == color) {
+            enableBoard();
+        }
+        if (result.color == Color.BLACK) {
+            blackLabel.setText("Invalid Move");
+            blackLabel.setForeground(new java.awt.Color(255, 0, 0));
+            whiteLabel.setText("Please Wait");
+            whiteLabel.setForeground(new java.awt.Color(0, 255, 0));
+        } else {
+            whiteLabel.setText("Invalid Move");
+            whiteLabel.setForeground(new java.awt.Color(255, 0, 0));
+            blackLabel.setText("Please Wait");
+            blackLabel.setForeground(new java.awt.Color(0, 255, 0));
+        }
     }
 
     public void displayBoard() {
@@ -262,8 +264,8 @@ public class ClientBoard extends JFrame {
     }
 
     private JLabel nameLabel;
-    private JLabel playerLabel1;
-    private JLabel playerLabel2;
+    private JLabel whiteLabel;
+    private JLabel blackLabel;
     private JLabel gameIDLabel;
     private JPanel board;
     private JToggleButton[] toggleButton;
