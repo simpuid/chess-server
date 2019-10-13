@@ -16,7 +16,7 @@ public class Pawn extends Piece {
         this.moveCount = 0;
     }
 
-    private int sign(int x) {
+    protected int sign(int x) {
         if (x == 0) return 0;
         return x > 0 ? 1 : -1;
     }

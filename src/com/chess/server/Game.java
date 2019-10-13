@@ -4,6 +4,7 @@ import com.chess.chessboard.ChessBoard;
 import com.chess.chessboard.pieces.Color;
 import com.chess.common.moves.Move;
 import com.chess.common.results.GameFinished;
+import com.chess.common.results.InvalidMove;
 import com.chess.common.results.Result;
 import com.chess.common.results.SetTurn;
 import com.chess.parser.Encoder;
@@ -41,7 +42,8 @@ public class Game {
         Result result = chessBoard.evaluate(move);
         host.send(Encoder.encode(result));
         visitor.send(Encoder.encode(result));
-        setColor(chessBoard.currentColor);
+        if (!(result instanceof InvalidMove))
+            setColor(chessBoard.currentColor);
     }
 
     public Color getAssignedColor(Player player) {
