@@ -7,7 +7,7 @@ import com.chess.common.request.Join;
 import com.chess.common.response.Error;
 import com.chess.common.response.Response;
 import com.chess.common.response.Success;
-import com.chess.common.results.Result;
+import com.chess.common.results.*;
 import com.chess.parser.Decoder;
 import com.chess.parser.Encoder;
 
@@ -50,7 +50,9 @@ public class Client {
     }
 
     public void createSocket(String address, int port) throws Exception {
+        System.out.println("trying to connect");
         socket = new Socket(address, port);
+        System.out.println("connected");
         out = new PrintWriter(socket.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         System.out.println("socket created");
@@ -91,7 +93,15 @@ public class Client {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 Result result = Decoder.decodeResult(inputLine);
-                clientBoard.processResult(result);
+
+                if (result instanceof GameFinished)
+                    clientBoard.processResult(result);
+                else if (result instanceof InvalidMove)
+                    clientBoard.processResult(result);
+                else if (result instanceof SetTurn)
+                    clientBoard.processResult(result);
+                else if (result instanceof StateChange)
+                    clientBoard.processResult(result);
             }
             disconnect();
         } catch (Exception e) {
