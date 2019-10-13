@@ -10,6 +10,9 @@ import com.chess.common.results.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.security.PublicKey;
 
 public class ClientBoard extends JFrame {
 
@@ -19,6 +22,7 @@ public class ClientBoard extends JFrame {
     private int gameID;
     private ChessBoard chessBoard;
     private Client client;
+    public boolean isTurn;
 
     public ClientBoard(com.chess.chessboard.pieces.Color color, int gameID, Client client) {
         initComponents();
@@ -26,6 +30,7 @@ public class ClientBoard extends JFrame {
         this.gameID = gameID;
         chessBoard = new ChessBoard();
         this.client = client;
+        gameIDLabel.setText("GameID : " + gameID);
         updateBoard();
     }
 
@@ -65,7 +70,7 @@ public class ClientBoard extends JFrame {
 
         gameIDLabel.setFont(new Font("Ubuntu", 1, 18));
         gameIDLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        gameIDLabel.setText("GameID");
+        gameIDLabel.setText("GameID : ");
         getContentPane().add(gameIDLabel);
         gameIDLabel.setBounds(605, 45, 295, 30);
 
@@ -92,6 +97,12 @@ public class ClientBoard extends JFrame {
 
     private void buttonClicked(int boxID) {
         if (!isSecondClick) {
+            Position p = new Position(boxID);
+            if (chessBoard.boxArray[p.x][p.y].piece == null) {
+                disableBoard();
+                enableBoard();
+                return;
+            }
             isSecondClick = true;
             lastclickButton = boxID;
             toggleButton[boxID].setBackground(new java.awt.Color(255, 255, 51));
@@ -99,6 +110,7 @@ public class ClientBoard extends JFrame {
             toggleButton[boxID].setBackground(new java.awt.Color(255, 255, 51));
             Move move = generateMove(lastclickButton, boxID);
             client.sendMove(move);
+            isSecondClick = false;
             disableBoard();
         }
     }
@@ -106,12 +118,14 @@ public class ClientBoard extends JFrame {
     private void disableBoard() {
         for (int i = 0; i < 64; i++) {
             toggleButton[i].setEnabled(false);
+            toggleButton[i].setSelected(false);
         }
     }
 
     public void enableBoard() {
         for (int i = 0; i < 64; i++) {
             toggleButton[i].setEnabled(true);
+            toggleButton[i].setBackground(new java.awt.Color(0.5f, 0.5f, 0.5f));
         }
     }
 
@@ -150,12 +164,9 @@ public class ClientBoard extends JFrame {
     }
 
     private Move generateMove(int source, int destination) {
-        MoveNormal moveNormal = new MoveNormal(color, gameID, 0, 0, new Position(source), new Position(destination));
+        Position pos = new Position(source);
+        MoveNormal moveNormal = new MoveNormal(color, gameID, 0, chessBoard.getPiece(pos.x, pos.y).pieceID, new Position(source), new Position(destination));
         return moveNormal;
-    }
-
-    public void processResult(Result result) {
-
     }
 
     public void processResult(GameFinished result) {
@@ -164,11 +175,24 @@ public class ClientBoard extends JFrame {
         JLabel resultLabel = new JLabel(result.winner + " wins.");
         endDialog.add(resultLabel);
         JButton endButton = new JButton("OK");
-        endButton.addActionListener(actionEvent -> buttonClicked(1));
+        endDialog.add(endButton);
+        endDialog.setSize(new Dimension(300, 100));
+        resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        endDialog.setLayout(new GridLayout(1, 2, 40, 1));
+        resultLabel.setFont(new Font("Ubuntu", 1, 18));
+        endButton.setFont((new Font("Ubuntu", 1, 18)));
+        endButton.addActionListener(actionEvent -> dialogClose(endDialog));
         endDialog.setVisible(true);
     }
 
+    public void dialogClose(JDialog dialog) {
+        dialog.setVisible(false);
+        dialog.dispose();
+        client.disconnect();
+    }
+
     public void processResult(StateChange result) {
+        System.out.println("test 3");
         for (int i = 0; i < result.deltas.size(); i++) {
             Delta d = result.deltas.get(i);
             Position p = chessBoard.pieceArray[d.pieceId].boxID;
@@ -185,11 +209,35 @@ public class ClientBoard extends JFrame {
     }
 
     public void processResult(SetTurn result) {
-
+        System.out.println("Recieved SetTurn");
+        if (color == result.color) {
+            isTurn = true;
+            enableBoard();
+        } else {
+            isTurn = false;
+            disableBoard();
+        }
     }
 
     public void processResult(InvalidMove result) {
+        System.out.println("Recieved InvalidMove");
 
+        JDialog dialog = new JDialog(this, "Invalid Move");
+        dialog.setSize(new Dimension(300, 100));
+        dialog.setLayout(new GridLayout(1, 1, 50, 10));
+        dialog.setVisible(true);
+        dialog.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent evt) {
+                dialog.setVisible(false);
+                dialog.dispose();
+                enableBoard();
+            }
+        });
+
+        JLabel moveLabel = new JLabel("Invalid move.");
+        moveLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        moveLabel.setFont(new Font("Ubuntu", 1, 18));
+        dialog.add(moveLabel);
     }
 
     public void displayBoard() {
