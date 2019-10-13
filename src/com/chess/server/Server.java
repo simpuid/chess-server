@@ -66,8 +66,11 @@ public class Server {
     void endGame(int id) {
         if (map.containsKey(id)) {
             System.out.println("ending game with id " + id);
-            map.get(id).close();
-            map.remove(id, map.get(id));
+            Game g = map.get(id);
+            if (g != null) {
+                map.get(id).close();
+                map.remove(id, map.get(id));
+            }
         }
     }
 }

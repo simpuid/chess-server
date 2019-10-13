@@ -1,21 +1,25 @@
 package com.chess.server;
 
+import com.chess.chessboard.ChessBoard;
 import com.chess.chessboard.pieces.Color;
 import com.chess.common.moves.Move;
 import com.chess.common.results.GameFinished;
-import com.chess.common.results.InvalidMove;
+import com.chess.common.results.Result;
+import com.chess.common.results.SetTurn;
 import com.chess.parser.Encoder;
 
 public class Game {
     Player host;
     Player visitor;
     Server server;
+    ChessBoard chessBoard;
     int gameId;
 
     Game(Player host, int id, Server server) {
         this.host = host;
         this.visitor = null;
         this.server = server;
+        this.chessBoard = new ChessBoard();
         gameId = id;
     }
 
@@ -23,8 +27,21 @@ public class Game {
         visitor = player;
     }
 
+    public void setColor(Color color) {
+        chessBoard.currentColor = color;
+        if (host != null && visitor != null) {
+            host.send(new SetTurn(color));
+            visitor.send(new SetTurn(color));
+            System.out.println("sending setcolor");
+        }
+    }
+
     public void process(Move move, Player player) {
-        player.send(Encoder.encode(new InvalidMove()));
+        System.out.println("mo");
+        Result result = chessBoard.evaluate(move);
+        host.send(Encoder.encode(result));
+        visitor.send(Encoder.encode(result));
+        setColor(chessBoard.currentColor);
     }
 
     public Color getAssignedColor(Player player) {

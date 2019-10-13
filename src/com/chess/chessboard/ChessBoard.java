@@ -10,6 +10,7 @@ import com.chess.common.results.InvalidMove;
 import com.chess.common.results.Result;
 
 public class ChessBoard {
+    public Color currentColor;
     public Box[][] boxArray;
     public Piece[] pieceArray;
 
@@ -67,12 +68,10 @@ public class ChessBoard {
                 boxArray[i][j] = new Box(null, posn);
             }
         }
-        Position posn = new Position(0);
-        //boxArray[0][0].piece = new Pawn(Color.BLACK, 0, posn, PieceType.PAWN);
         for (int i = 0; i < 32; i++) {
             boxArray[pieceArray[i].boxID.x][pieceArray[i].boxID.y].piece = pieceArray[i];
         }
-//        boxArray[1][2].piece = pieceArray[16];
+        currentColor = Color.WHITE;
     }
 
     public void print() {
@@ -128,15 +127,19 @@ public class ChessBoard {
         int sx = move.source.x;
         int sy = move.source.y;
         if (checkBounds(move.source) || checkBounds(move.destination))
-            return new InvalidMove();
+            return new InvalidMove(currentColor);
         if (lineTest(move.source, move.destination))
-            return new InvalidMove();
+            return new InvalidMove(currentColor);
         if (getPiece(sx, sy) == null)
-            return new InvalidMove();
+            return new InvalidMove(currentColor);
         if (getPiece(sx, sy).pieceID != move.pieceId)
-            return new InvalidMove();
+            return new InvalidMove(currentColor);
         if (!pieceArray[move.pieceId].checkValid(move, this))
-            return new InvalidMove();
+            return new InvalidMove(currentColor);
+        if (!move.color.equals(currentColor))
+            return new InvalidMove(currentColor);
+        System.out.println("color" + (move.color == Color.WHITE ? "white" : "black") + (currentColor == Color.WHITE ? "white" : "black"));
+        currentColor = (currentColor == Color.BLACK ? Color.WHITE : Color.BLACK);
         return pieceArray[move.pieceId].movePiece(move, this);
     }
 
