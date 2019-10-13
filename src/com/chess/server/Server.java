@@ -30,6 +30,8 @@ public class Server {
                 Player player = new Player(serverSocket.accept(), this);
                 System.out.println("player connected");
                 player.start();
+
+
             } catch (Exception e) {
                 System.out.println("player creation failed");
             }

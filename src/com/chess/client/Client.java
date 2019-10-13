@@ -95,13 +95,13 @@ public class Client {
                 Result result = Decoder.decodeResult(inputLine);
 
                 if (result instanceof GameFinished)
-                    clientBoard.processResult(result);
+                    clientBoard.processResult((GameFinished) result);
                 else if (result instanceof InvalidMove)
-                    clientBoard.processResult(result);
+                    clientBoard.processResult((InvalidMove) result);
                 else if (result instanceof SetTurn)
-                    clientBoard.processResult(result);
+                    clientBoard.processResult((SetTurn) result);
                 else if (result instanceof StateChange)
-                    clientBoard.processResult(result);
+                    clientBoard.processResult((StateChange) result);
             }
             disconnect();
         } catch (Exception e) {

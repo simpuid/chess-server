@@ -1,10 +1,11 @@
 package com.chess.server;
 
+import com.chess.chessboard.pieces.Color;
 import com.chess.common.moves.Move;
 import com.chess.common.request.Request;
 import com.chess.common.response.Error;
 import com.chess.common.response.Success;
-import com.chess.common.results.InvalidMove;
+import com.chess.common.results.GameFinished;
 import com.chess.common.results.Result;
 import com.chess.parser.Decoder;
 import com.chess.parser.Encoder;
@@ -94,7 +95,7 @@ public class Player extends Thread {
         if (!establishConnection())
             return;
 
-        out.println(Encoder.encode(new InvalidMove()));
+        out.println(Encoder.encode(new GameFinished(Color.WHITE)));
 
         receiveLoop();
     }
