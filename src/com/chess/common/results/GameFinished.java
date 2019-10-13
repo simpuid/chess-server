@@ -7,7 +7,7 @@ import com.chess.parser.Encoder;
 import java.util.Scanner;
 
 public class GameFinished extends Result {
-    Color winner;
+    public Color winner;
 
     public GameFinished(Color color) {
         this.winner = color;

@@ -4,17 +4,15 @@ import com.chess.chessboard.ChessBoard;
 import com.chess.chessboard.pieces.Color;
 import com.chess.chessboard.pieces.*;
 import com.chess.common.Position;
-import com.chess.common.Position;
 import com.chess.common.moves.Move;
-import com.chess.common.results.Result;
+import com.chess.common.moves.MoveNormal;
+import com.chess.common.results.*;
+import com.chess.server.Game;
+import com.sun.jdi.JDIPermission;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import com.chess.chessboard.pieces.Color;
-import com.chess.common.moves.MoveNormal;
+import java.security.PublicKey;
 
 public class ClientBoard extends JFrame {
 
@@ -160,6 +158,28 @@ public class ClientBoard extends JFrame {
     }
 
     public void processResult(Result result) {
+
+    }
+
+    public void processResult(GameFinished result) {
+        System.out.println(result.winner + " wins.");
+        JDialog endDialog = new JDialog(this, "Game Finished");
+        JLabel resultLabel = new JLabel(result.winner + " wins.");
+        endDialog.add(resultLabel);
+        JButton endButton = new JButton("OK");
+        endButton.addActionListener(actionEvent -> buttonClicked(1));
+        endDialog.setVisible(true);
+    }
+
+    public void processResult(StateChange result) {
+
+    }
+
+    public void processResult(SetTurn result) {
+
+    }
+
+    public void processResult(InvalidMove result) {
 
     }
 
