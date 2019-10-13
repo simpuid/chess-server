@@ -56,6 +56,7 @@ public class Player extends Thread {
 
     private boolean establishConnection() {
         try {
+            System.out.println("reading request from player");
             Request request = Decoder.decodeRequest(in.readLine());
             if (request == null)
                 return false;
@@ -63,11 +64,14 @@ public class Player extends Thread {
             if (game == null) {
                 send(Encoder.encode(new Error()));
                 disconnect();
+                System.out.println("can't find/create game");
                 return false;
             } else {
+                System.out.println("sending success message");
                 send(Encoder.encode(new Success(game.gameId, game.getAssignedColor(this))));
             }
         } catch (Exception e) {
+            System.out.println("socket exception");
             return false;
         }
         return true;

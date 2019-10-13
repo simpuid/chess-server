@@ -25,7 +25,9 @@ public class Client {
     ClientBoard clientBoard;
 
     public Client(String address, int port) throws Exception {
+        System.out.println("creating socket");
         createSocket(address, port);
+        System.out.println("sending request");
         out.println(Encoder.encode(new Host()));
         readResponse();
         clientBoard = new ClientBoard(color, gameId, this);
@@ -33,8 +35,10 @@ public class Client {
     }
 
     public Client(String address, int port, int gameID) throws Exception {
-        System.out.println("game id" + gameID);
+        System.out.println("supplied game id is " + gameID);
+        System.out.println("creating socket");
         createSocket(address, port);
+        System.out.println("sending request");
         out.println(Encoder.encode(new Join(gameID)));
         readResponse();
         clientBoard = new ClientBoard(color, gameId, this);
@@ -53,6 +57,7 @@ public class Client {
     }
 
     private void readResponse() throws Exception {
+        System.out.println("starting to read response");
         String inputString = in.readLine();
         if (inputString == null)
             throw new Exception("client creation error");
@@ -64,6 +69,7 @@ public class Client {
             color = ((Success) response).color;
         } else
             throw new Exception("unknown response");
+        System.out.println("got response");
         System.out.println(Encoder.encode(response));
     }
 
