@@ -4,8 +4,10 @@ import com.chess.common.moves.Move;
 import com.chess.common.request.Request;
 import com.chess.common.response.Error;
 import com.chess.common.response.Success;
+import com.chess.common.results.Delta;
 import com.chess.common.results.InvalidMove;
 import com.chess.common.results.Result;
+import com.chess.common.results.StateChange;
 import com.chess.parser.Decoder;
 import com.chess.parser.Encoder;
 
@@ -13,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Player extends Thread {
     private Socket socket;
@@ -94,7 +97,9 @@ public class Player extends Thread {
     public void run() {
         if (!establishConnection())
             return;
-
+        ArrayList<Delta> dl = new ArrayList<Delta>();
+        dl.add(new Delta(1, 24));
+        StateChange ch = new StateChange(dl);
         out.println(Encoder.encode(new InvalidMove()));
 
         receiveLoop();
