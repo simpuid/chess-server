@@ -7,12 +7,9 @@ import com.chess.common.Position;
 import com.chess.common.moves.Move;
 import com.chess.common.moves.MoveNormal;
 import com.chess.common.results.*;
-import com.chess.server.Game;
-import com.sun.jdi.JDIPermission;
 
 import javax.swing.*;
 import java.awt.*;
-import java.security.PublicKey;
 
 public class ClientBoard extends JFrame {
 
@@ -172,7 +169,19 @@ public class ClientBoard extends JFrame {
     }
 
     public void processResult(StateChange result) {
-
+        for (int i = 0; i < result.deltas.size(); i++) {
+            Delta d = result.deltas.get(i);
+            Position p = chessBoard.pieceArray[d.pieceId].boxID;
+            if (!p.isDead()) {
+                chessBoard.boxArray[p.x][p.y].piece = null;
+            }
+            chessBoard.pieceArray[d.pieceId].boxID = new Position(d.positionId);
+            Position p2 = new Position(d.positionId);
+            if (!p2.isDead()) {
+                chessBoard.boxArray[p2.x][p2.y].piece = chessBoard.pieceArray[d.pieceId];
+            }
+        }
+        updateBoard();
     }
 
     public void processResult(SetTurn result) {

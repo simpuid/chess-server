@@ -147,4 +147,19 @@ public class ChessBoard {
             return evaluate((MoveNormal) move);
         return new InvalidMove();
     }
+
+    public void movePiece(int sourcePos, int destinationPos) {
+        Position src = new Position(sourcePos);
+        Position des = new Position(destinationPos);
+        Piece srcPiece = getPiece(src.x, src.y);
+        Piece desPiece = getPiece(des.x, des.y);
+        if (srcPiece == null)
+            return;
+        if (desPiece != null) {
+            desPiece.boxID = new Position(64);
+        }
+        boxArray[des.x][des.y].piece = srcPiece;
+        boxArray[src.x][src.y].piece = null;
+        srcPiece.boxID = des;
+    }
 }

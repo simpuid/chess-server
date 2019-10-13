@@ -286,40 +286,17 @@ public class Pawn extends Piece {
         int ys = move.source.y;
         StateChange change = new StateChange();
         this.moveCount = this.moveCount + 1;
-        if (chessBoard.boxArray[xd][yd].piece == null) {
+        if (chessBoard.getPiece(xd, yd) == null) {
             chessBoard.boxArray[xd][yd].piece = chessBoard.pieceArray[move.pieceId];
             chessBoard.boxArray[xs][ys].piece = null;
             Delta delta = new Delta(move.pieceId, xd + yd * 8);
             change.deltas.add(delta);
-            if (move.color == Color.BLACK) {
+            if (xd != xs) {
                 int pid;
-                if ((xd == xs + 1) && (yd == ys - 1)) {
-                    pid = chessBoard.boxArray[xd][ys].piece.pieceID;
-                    chessBoard.pieceArray[pid].boxID = new Position(64);
-                    chessBoard.boxArray[xd][ys].piece = null;
-                    change.deltas.add(new Delta(pid, 64));
-                }
-                if ((xd == xs - 1) && (yd == ys - 1)) {
-                    pid = chessBoard.boxArray[xd][ys].piece.pieceID;
-                    chessBoard.pieceArray[pid].boxID = new Position(64);
-                    chessBoard.boxArray[xd][ys].piece = null;
-                    change.deltas.add(new Delta(pid, 64));
-                }
-            }
-            if (move.color == Color.WHITE) {
-                int pid;
-                if ((xd == xs + 1) && (yd == ys + 1)) {
-                    pid = chessBoard.boxArray[xd][ys].piece.pieceID;
-                    chessBoard.pieceArray[pid].boxID = new Position(64);
-                    chessBoard.boxArray[xd][ys].piece = null;
-                    change.deltas.add(new Delta(pid, 64));
-                }
-                if ((xd == xs - 1) && (yd == ys + 1)) {
-                    pid = chessBoard.boxArray[xd][ys].piece.pieceID;
-                    chessBoard.pieceArray[pid].boxID = new Position(64);
-                    chessBoard.boxArray[xd][ys].piece = null;
-                    change.deltas.add(new Delta(pid, 64));
-                }
+                pid = chessBoard.boxArray[xd][ys].piece.pieceID;
+                chessBoard.pieceArray[pid].boxID = new Position(64);
+                chessBoard.boxArray[xd][ys].piece = null;
+                change.deltas.add(new Delta(pid, 64));
             }
         } else {
             int pid = chessBoard.boxArray[xd][yd].piece.pieceID;
