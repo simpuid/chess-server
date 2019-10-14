@@ -8,6 +8,7 @@ import com.chess.common.moves.MoveTerminate;
 import com.chess.common.results.GameFinished;
 import com.chess.common.results.InvalidMove;
 import com.chess.common.results.Result;
+import com.chess.common.results.StateChange;
 
 public class ChessBoard {
     public Color currentColor;
@@ -140,7 +141,12 @@ public class ChessBoard {
             return new InvalidMove(currentColor);
         System.out.println("color" + (move.color == Color.WHITE ? "white" : "black") + (currentColor == Color.WHITE ? "white" : "black"));
         currentColor = (currentColor == Color.BLACK ? Color.WHITE : Color.BLACK);
-        return pieceArray[move.pieceId].movePiece(move, this);
+        StateChange change = pieceArray[move.pieceId].movePiece(move, this);
+        if (pieceArray[3].boxID.isDead())
+            return new GameFinished(Color.BLACK);
+        else if (pieceArray[27].boxID.isDead())
+            return new GameFinished(Color.WHITE);
+        return change;
     }
 
     public Result evaluate(Move move) {

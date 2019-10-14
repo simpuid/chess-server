@@ -48,6 +48,9 @@ public class ClientBoard extends JFrame {
         setMinimumSize(new Dimension(905, 950));
         setMaximumSize(new Dimension(905, 950));
         getContentPane().setLayout(null);
+        setResizable(false);
+        setTitle("Chess Game");
+        setIconImage(new ImageIcon("mainicon.jpeg").getImage());
 
         nameLabel.setFont(new Font("Ubuntu", 1, 24));
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -178,7 +181,6 @@ public class ClientBoard extends JFrame {
 
     public void processResult(GameFinished result) {
         System.out.println(result.winner + " wins.");
-        JOptionPane.showMessageDialog(null, result.winner + " wins");
         if (result.winner == Color.BLACK) {
             blackLabel.setText("You win.");
             blackLabel.setBackground(new java.awt.Color(0, 255, 0));
@@ -186,6 +188,7 @@ public class ClientBoard extends JFrame {
             whiteLabel.setText("You win.");
             whiteLabel.setBackground(new java.awt.Color(0, 255, 0));
         }
+        JOptionPane.showMessageDialog(null, result.winner + " wins");
         client.disconnect();
     }
 
