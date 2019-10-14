@@ -9,9 +9,9 @@ import com.chess.common.results.StateChange;
 public class Piece {
     public Color color;
     public int pieceID;
-    public PieceType type;
+    PieceType type;
     public Position boxID;
-    public int moveCount;
+    int moveCount;
 
     public int getPieceID() {
         return pieceID;

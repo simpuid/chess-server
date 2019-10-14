@@ -10,10 +10,10 @@ import com.chess.common.results.SetTurn;
 import com.chess.parser.Encoder;
 
 public class Game {
-    Player host;
-    Player visitor;
-    Server server;
-    ChessBoard chessBoard;
+    private Player host;
+    private Player visitor;
+    private Server server;
+    private ChessBoard chessBoard;
     int gameId;
 
     Game(Player host, int id, Server server) {
@@ -24,7 +24,7 @@ public class Game {
         gameId = id;
     }
 
-    public void setVisitor(Player player) {
+    void setVisitor(Player player) {
         visitor = player;
     }
 
@@ -37,7 +37,7 @@ public class Game {
         }
     }
 
-    public void process(Move move, Player player) {
+    void process(Move move) {
         System.out.println("mo");
         Result result = chessBoard.evaluate(move);
         host.send(Encoder.encode(result));
@@ -46,13 +46,13 @@ public class Game {
             setColor(chessBoard.currentColor);
     }
 
-    public Color getAssignedColor(Player player) {
+    Color getAssignedColor(Player player) {
         if (player == host)
             return Color.WHITE;
         return Color.BLACK;
     }
 
-    public void disconnectPlayer(Player player) {
+    void disconnectPlayer(Player player) {
         System.out.println("disconnecting");
         if (player == host) {
             if (visitor != null) {
@@ -69,11 +69,11 @@ public class Game {
         }
     }
 
-    public boolean isFull() {
+    boolean isFull() {
         return visitor != null;
     }
 
-    public void close() {
+    void close() {
         if (host != null)
             host.close();
         if (visitor != null)

@@ -30,7 +30,7 @@ public class Client {
         System.out.println("sending request");
         out.println(Encoder.encode(new Host()));
         readResponse();
-        clientBoard = new ClientBoard(color, gameId, this, false);
+        clientBoard = new ClientBoard(color, gameId, this);
         clientBoard.displayBoard();
     }
 
@@ -41,7 +41,7 @@ public class Client {
         System.out.println("sending request");
         out.println(Encoder.encode(new Join(gameID)));
         readResponse();
-        clientBoard = new ClientBoard(color, gameId, this, true);
+        clientBoard = new ClientBoard(color, gameId, this);
         clientBoard.displayBoard();
     }
 

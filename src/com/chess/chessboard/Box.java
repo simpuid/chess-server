@@ -7,11 +7,11 @@ public class Box {
     public Piece piece;
     public Position position;
 
-    public boolean isEmpty() {
+    boolean isEmpty() {
         return piece == null;
     }
 
-    public Box(Piece piece, Position position) {
+    Box(Piece piece, Position position) {
         this.piece = piece;
         this.position = position;
     }

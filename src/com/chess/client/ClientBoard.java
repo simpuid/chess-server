@@ -11,7 +11,7 @@ import com.chess.common.results.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class ClientBoard extends JFrame {
+class ClientBoard extends JFrame {
 
     private int lastclickButton;
     private boolean isSecondClick;
@@ -19,15 +19,13 @@ public class ClientBoard extends JFrame {
     private int gameID;
     private ChessBoard chessBoard;
     private Client client;
-    public boolean isTurn;
 
-    public ClientBoard(com.chess.chessboard.pieces.Color color, int gameID, Client client, boolean isTurn) {
+    ClientBoard(com.chess.chessboard.pieces.Color color, int gameID, Client client) {
         initComponents();
         this.color = color;
         this.gameID = gameID;
         chessBoard = new ChessBoard();
         this.client = client;
-        this.isTurn = isTurn;
         gameIDLabel.setText("GameID : " + gameID);
         updateBoard();
         disableBoard();
@@ -52,13 +50,13 @@ public class ClientBoard extends JFrame {
         setTitle("Chess Game");
         setIconImage(new ImageIcon("mainicon.jpeg").getImage());
 
-        nameLabel.setFont(new Font("Ubuntu", 1, 24));
+        nameLabel.setFont(new Font("Ubuntu", Font.BOLD, 24));
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameLabel.setText("Online Chess Game");
         getContentPane().add(nameLabel);
         nameLabel.setBounds(5, 5, 895, 35);
 
-        whiteLabel.setFont(new Font("Ubuntu", 1, 18));
+        whiteLabel.setFont(new Font("Ubuntu", Font.BOLD, 18));
         whiteLabel.setHorizontalAlignment(SwingConstants.CENTER);
         whiteLabel.setText("Welcome");
         whiteLabel.setForeground(new java.awt.Color(0, 0, 0));
@@ -68,7 +66,7 @@ public class ClientBoard extends JFrame {
         getContentPane().add(whiteLabel);
         whiteLabel.setBounds(5, 45, 295, 30);
 
-        blackLabel.setFont(new Font("Ubuntu", 1, 18));
+        blackLabel.setFont(new Font("Ubuntu", Font.BOLD, 18));
         blackLabel.setHorizontalAlignment(SwingConstants.CENTER);
         blackLabel.setText("Welcome");
         blackLabel.setOpaque(true);
@@ -78,13 +76,13 @@ public class ClientBoard extends JFrame {
         getContentPane().add(blackLabel);
         blackLabel.setBounds(305, 45, 295, 30);
 
-        gameIDLabel.setFont(new Font("Ubuntu", 1, 18));
+        gameIDLabel.setFont(new Font("Ubuntu", Font.BOLD, 18));
         gameIDLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gameIDLabel.setText("GameID : ");
         getContentPane().add(gameIDLabel);
         gameIDLabel.setBounds(605, 45, 295, 30);
 
-        board.setFont(new Font("Ubuntu", 1, 18));
+        board.setFont(new Font("Ubuntu", Font.BOLD, 18));
         board.setMaximumSize(new Dimension(800, 800));
         board.setMinimumSize(new Dimension(800, 800));
         board.setPreferredSize(new Dimension(800, 800));
@@ -95,7 +93,7 @@ public class ClientBoard extends JFrame {
         for (int i = 7; i >= 0; i--) {
             for (int j = 0; j < 8; j++) {
                 int value = (8 * i) + j;
-                toggleButton[value].setFont(new Font("Ubuntu", 1, 18));
+                toggleButton[value].setFont(new Font("Ubuntu", Font.BOLD, 18));
                 toggleButton[value].setHorizontalAlignment(SwingConstants.CENTER);
                 toggleButton[value].setText("Box" + value);
                 toggleButton[value].addActionListener(actionEvent -> buttonClicked(value));
@@ -132,7 +130,7 @@ public class ClientBoard extends JFrame {
         }
     }
 
-    public void enableBoard() {
+    private void enableBoard() {
         for (int i = 0; i < 64; i++) {
             toggleButton[i].setEnabled(true);
             toggleButton[i].setBackground(new java.awt.Color(0.5f, 0.5f, 0.5f));
@@ -175,11 +173,10 @@ public class ClientBoard extends JFrame {
 
     private Move generateMove(int source, int destination) {
         Position pos = new Position(source);
-        MoveNormal moveNormal = new MoveNormal(color, gameID, 0, chessBoard.getPiece(pos.x, pos.y).pieceID, new Position(source), new Position(destination));
-        return moveNormal;
+        return new MoveNormal(color, gameID, 0, chessBoard.getPiece(pos.x, pos.y).pieceID, new Position(source), new Position(destination));
     }
 
-    public void processResult(GameFinished result) {
+    void processResult(GameFinished result) {
         System.out.println(result.winner + " wins.");
         if (result.winner == Color.BLACK) {
             blackLabel.setText("You win.");
@@ -192,7 +189,7 @@ public class ClientBoard extends JFrame {
         client.disconnect();
     }
 
-    public void processResult(StateChange result) {
+    void processResult(StateChange result) {
         System.out.println("test 3");
         for (int i = 0; i < result.deltas.size(); i++) {
             Delta d = result.deltas.get(i);
@@ -209,13 +206,11 @@ public class ClientBoard extends JFrame {
         updateBoard();
     }
 
-    public void processResult(SetTurn result) {
+    void processResult(SetTurn result) {
         System.out.println("Recieved SetTurn");
         if (color == result.color) {
-            isTurn = true;
             enableBoard();
         } else {
-            isTurn = false;
             disableBoard();
         }
         if (result.color == Color.BLACK) {
@@ -231,7 +226,7 @@ public class ClientBoard extends JFrame {
         }
     }
 
-    public void processResult(InvalidMove result) {
+    void processResult(InvalidMove result) {
         System.out.println("Recieved InvalidMove");
         if (result.color == color) {
             enableBoard();
@@ -249,7 +244,7 @@ public class ClientBoard extends JFrame {
         }
     }
 
-    public void displayBoard() {
+    void displayBoard() {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

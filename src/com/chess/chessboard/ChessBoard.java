@@ -93,7 +93,7 @@ public class ChessBoard {
         return x > 0 ? 1 : -1;
     }
 
-    public boolean lineTest(Position source, Position destination) {
+    private boolean lineTest(Position source, Position destination) {
         int sx = source.x, sy = source.y;
         int dx = destination.x, dy = destination.y;
         int absX = Math.abs(sx - dx), absY = Math.abs(sy - dy);
@@ -103,7 +103,7 @@ public class ChessBoard {
         if (absX != absY && absX * absY != 0)
             return false;
 
-        for (int i = 1; i < (absX > absY ? absX : absY); i++) {
+        for (int i = 1; i < (Math.max(absX, absY)); i++) {
             if (!boxArray[sx + signX * i][sy + signY * i].isEmpty())
                 return true;
         }
@@ -155,20 +155,5 @@ public class ChessBoard {
         if (move instanceof MoveNormal)
             return evaluate((MoveNormal) move);
         return new InvalidMove(currentColor);
-    }
-
-    public void movePiece(int sourcePos, int destinationPos) {
-        Position src = new Position(sourcePos);
-        Position des = new Position(destinationPos);
-        Piece srcPiece = getPiece(src.x, src.y);
-        Piece desPiece = getPiece(des.x, des.y);
-        if (srcPiece == null)
-            return;
-        if (desPiece != null) {
-            desPiece.boxID = new Position(64);
-        }
-        boxArray[des.x][des.y].piece = srcPiece;
-        boxArray[src.x][src.y].piece = null;
-        srcPiece.boxID = des;
     }
 }

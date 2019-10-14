@@ -84,7 +84,7 @@ public class Player extends Thread {
             while ((inputLine = in.readLine()) != null) {
                 Move move = Decoder.decodeMove(inputLine);
                 System.out.println("got move");
-                game.process(move, this);
+                game.process(move);
             }
             disconnect();
         } catch (Exception e) {
