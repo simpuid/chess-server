@@ -9,7 +9,7 @@ import java.util.Scanner;
 public abstract class Move {
     public int gameId;
     public Color color;
-    public int timeStamp;
+    private int timeStamp;
 
     public Move(int gameId, Color color, int timeStamp) {
         this.color = color;

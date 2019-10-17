@@ -22,7 +22,7 @@ public class Client {
     private BufferedReader in;
     private int gameId;
     private Color color;
-    ClientBoard clientBoard;
+    private ClientBoard clientBoard;
 
     public Client(String address, int port) throws Exception {
         System.out.println("creating socket");
@@ -45,11 +45,11 @@ public class Client {
         clientBoard.displayBoard();
     }
 
-    public void sendMove(Move move) {
+    void sendMove(Move move) {
         out.println(Encoder.encode(move));
     }
 
-    public void createSocket(String address, int port) throws Exception {
+    private void createSocket(String address, int port) throws Exception {
         System.out.println("trying to connect");
         socket = new Socket(address, port);
         System.out.println("connected");
@@ -75,20 +75,20 @@ public class Client {
         System.out.println(Encoder.encode(response));
     }
 
-    public void disconnect() {
+    void disconnect() {
         try {
             socket.close();
             in.close();
             out.close();
             System.out.println("disconnected");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         clientBoard.setVisible(false);
         clientBoard.dispose();
     }
 
-    public void receiveCycle() {
+    private void receiveCycle() {
         try {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {

@@ -4,6 +4,9 @@ import com.chess.chessboard.ChessBoard;
 import com.chess.common.Position;
 import com.chess.common.moves.MoveNormal;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class King extends Piece {
     public boolean inCheck;
     public King(Color color, int pieceID, Position boxID,PieceType type) {
@@ -13,6 +16,10 @@ public class King extends Piece {
         this.type=type;
         this.moveCount=0;
         this.inCheck=false;
+        if (color == Color.WHITE)
+            icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icons/king_white.png")));
+        else
+            icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icons/king_black.png")));
     }
 
     public boolean checkValid(MoveNormal move, ChessBoard chessBoard) {

@@ -4,13 +4,20 @@ import com.chess.chessboard.ChessBoard;
 import com.chess.common.Position;
 import com.chess.common.moves.MoveNormal;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Queen extends Piece {
-    public Queen(Color color, int pieceID, Position boxID,PieceType type) {
+    public Queen(Color color, int pieceID, Position boxID, PieceType type) {
         this.color = color;
         this.pieceID = pieceID;
         this.boxID = boxID;
-        this.type=type;
-        this.moveCount=0;
+        this.type = type;
+        this.moveCount = 0;
+        if (color == Color.WHITE)
+            icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icons/queen_white.png")));
+        else
+            icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icons/queen_black.png")));
     }
 
     public boolean checkValid(MoveNormal move, ChessBoard chessBoard) {

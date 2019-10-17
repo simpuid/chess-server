@@ -2,7 +2,7 @@ package com.chess.client;
 
 import com.chess.chessboard.ChessBoard;
 import com.chess.chessboard.pieces.Color;
-import com.chess.chessboard.pieces.*;
+import com.chess.chessboard.pieces.Piece;
 import com.chess.common.Position;
 import com.chess.common.moves.Move;
 import com.chess.common.moves.MoveNormal;
@@ -48,7 +48,7 @@ class ClientBoard extends JFrame {
         getContentPane().setLayout(null);
         setResizable(false);
         setTitle("Chess Game");
-        setIconImage(new ImageIcon("mainicon.jpeg").getImage());
+        setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("mainicon.jpeg"))).getImage());
 
         nameLabel.setFont(new Font("Ubuntu", Font.BOLD, 24));
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -89,14 +89,23 @@ class ClientBoard extends JFrame {
         getContentPane().add(board);
         board.setBounds(55, 100, 800, 800);
         board.setLayout(new GridLayout(8, 8, 0, 0));
-
         for (int i = 7; i >= 0; i--) {
             for (int j = 0; j < 8; j++) {
                 int value = (8 * i) + j;
                 toggleButton[value].setFont(new Font("Ubuntu", Font.BOLD, 18));
                 toggleButton[value].setHorizontalAlignment(SwingConstants.CENTER);
-                toggleButton[value].setText("Box" + value);
                 toggleButton[value].addActionListener(actionEvent -> buttonClicked(value));
+                if (i % 2 == 0) {
+                    if (value % 2 == 0)
+                        toggleButton[value].setBackground(new java.awt.Color(255, 255, 255));
+                    else
+                        toggleButton[value].setBackground(new java.awt.Color(0, 0, 0));
+                } else {
+                    if (value % 2 != 0)
+                        toggleButton[value].setBackground(new java.awt.Color(255, 255, 255));
+                    else
+                        toggleButton[value].setBackground(new java.awt.Color(0, 0, 0));
+                }
                 board.add(toggleButton[value]);
             }
         }
@@ -113,9 +122,7 @@ class ClientBoard extends JFrame {
             }
             isSecondClick = true;
             lastclickButton = boxID;
-            toggleButton[boxID].setBackground(new java.awt.Color(255, 255, 51));
         } else {
-            toggleButton[boxID].setBackground(new java.awt.Color(255, 255, 51));
             Move move = generateMove(lastclickButton, boxID);
             client.sendMove(move);
             isSecondClick = false;
@@ -133,40 +140,17 @@ class ClientBoard extends JFrame {
     private void enableBoard() {
         for (int i = 0; i < 64; i++) {
             toggleButton[i].setEnabled(true);
-            toggleButton[i].setBackground(new java.awt.Color(0.5f, 0.5f, 0.5f));
         }
-    }
-
-    private String getDisplayName(Piece piece) {
-        if (piece instanceof Rook)
-            return "rook";
-        if (piece instanceof Bishop)
-            return "bishop";
-        if (piece instanceof Knight)
-            return "knight";
-        if (piece instanceof King)
-            return "king";
-        if (piece instanceof Pawn)
-            return "pawn";
-        if (piece instanceof Queen)
-            return "queen";
-        return "";
     }
 
     private void updateBoard() {
         for (int i = 0; i < 64; i++) {
             Position position = new Position(i);
-            toggleButton[i].setBackground(new java.awt.Color(0.5f, 0.5f, 0.5f));
             if ((chessBoard.boxArray[position.x][position.y].piece) != null) {
                 Piece p = chessBoard.boxArray[position.x][position.y].piece;
-                toggleButton[i].setText(getDisplayName(p));
-                if (p.color == Color.BLACK) {
-                    toggleButton[i].setForeground(new java.awt.Color(0f, 0f, 0f));
-                } else {
-                    toggleButton[i].setForeground(new java.awt.Color(1f, 1f, 1f));
-                }
+                toggleButton[i].setIcon(p.icon);
             } else {
-                toggleButton[i].setText("");
+                toggleButton[i].setIcon(null);
             }
         }
     }
@@ -190,7 +174,6 @@ class ClientBoard extends JFrame {
     }
 
     void processResult(StateChange result) {
-        System.out.println("test 3");
         for (int i = 0; i < result.deltas.size(); i++) {
             Delta d = result.deltas.get(i);
             Position p = chessBoard.pieceArray[d.pieceId].boxID;

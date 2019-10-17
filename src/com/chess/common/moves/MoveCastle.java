@@ -8,10 +8,10 @@ import com.chess.parser.Encoder;
 import java.util.Scanner;
 
 public class MoveCastle extends Move {
-    public int kingId;
+    private int kingId;
     public Position kingSource;
     public Position kingDestination;
-    public int rookId;
+    private int rookId;
     public Position rookSource;
     public Position rookDestination;
 

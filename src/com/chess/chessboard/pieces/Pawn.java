@@ -6,6 +6,9 @@ import com.chess.common.moves.MoveNormal;
 import com.chess.common.results.Delta;
 import com.chess.common.results.StateChange;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Pawn extends Piece {
     public Pawn(Color color, int pieceID, Position boxID, PieceType type) {
         this.color = color;
@@ -13,6 +16,10 @@ public class Pawn extends Piece {
         this.boxID = boxID;
         this.type = type;
         this.moveCount = 0;
+        if (color == Color.WHITE)
+            icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icons/pawn_white.png")));
+        else
+            icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icons/pawn_black.png")));
     }
 
     protected int sign(int x) {

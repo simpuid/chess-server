@@ -6,12 +6,15 @@ import com.chess.common.moves.MoveNormal;
 import com.chess.common.results.Delta;
 import com.chess.common.results.StateChange;
 
+import javax.swing.*;
+
 public class Piece {
     public Color color;
     public int pieceID;
     PieceType type;
     public Position boxID;
     int moveCount;
+    public Icon icon;
 
     public int getPieceID() {
         return pieceID;
@@ -31,14 +34,6 @@ public class Piece {
     protected int sign(int x) {
         if (x == 0) return 0;
         return x > 0 ? 1 : -1;
-    }
-
-    public PieceType getType() {
-        return type;
-    }
-
-    public int getMoveCount() {
-        return moveCount;
     }
 
     public StateChange movePiece(MoveNormal move, ChessBoard chessBoard) {

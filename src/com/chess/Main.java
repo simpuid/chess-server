@@ -5,7 +5,7 @@ import com.chess.server.Server;
 
 public class Main {
 
-    public static void argumentError() {
+    private static void argumentError() {
         System.out.println("argument error");
     }
 
@@ -24,7 +24,6 @@ public class Main {
                 server.run();
             } catch (Exception e) {
                 System.out.println("server creation error");
-                return;
             }
         } else if (args[0].equals("client")) {
             if (args.length < 3) {
@@ -40,11 +39,9 @@ public class Main {
                 client.run();
             } catch (Exception e) {
                 System.out.println("client creation error");
-                return;
             }
         } else {
             argumentError();
-            return;
         }
     }
 }

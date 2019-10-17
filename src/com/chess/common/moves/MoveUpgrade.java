@@ -9,10 +9,10 @@ import com.chess.parser.Encoder;
 import java.util.Scanner;
 
 public class MoveUpgrade extends Move {
-    public int pieceId;
+    private int pieceId;
     public Position source;
     public Position destination;
-    public PieceType upgradeUnit;
+    private PieceType upgradeUnit;
 
     public MoveUpgrade(Color color, int gameId, int timeStamp, int pieceId, Position source, Position destination, PieceType upgradeUnit) {
         super(gameId, color, timeStamp);

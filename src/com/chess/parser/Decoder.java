@@ -35,23 +35,25 @@ public class Decoder {
         if (!scanner.hasNext())
             throw new Exception("decode_error");
         String s = scanner.next();
-        if (s.equals("pawn"))
-            return PieceType.PAWN;
-        else if (s.equals("rook"))
-            return PieceType.ROOK;
-        else if (s.equals("bishop"))
-            return PieceType.BISHOP;
-        else if (s.equals("knight"))
-            return PieceType.KNIGHT;
-        else if (s.equals("king"))
-            return PieceType.KING;
-        else if (s.equals("queen"))
-            return PieceType.QUEEN;
-        else
-            throw new Exception("piece type unknown");
+        switch (s) {
+            case "pawn":
+                return PieceType.PAWN;
+            case "rook":
+                return PieceType.ROOK;
+            case "bishop":
+                return PieceType.BISHOP;
+            case "knight":
+                return PieceType.KNIGHT;
+            case "king":
+                return PieceType.KING;
+            case "queen":
+                return PieceType.QUEEN;
+            default:
+                throw new Exception("piece type unknown");
+        }
     }
 
-    public static String readString(Scanner scanner) throws Exception {
+    private static String readString(Scanner scanner) throws Exception {
         if (!scanner.hasNext())
             throw new Exception("decode_error");
         return scanner.next();

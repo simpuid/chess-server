@@ -1,13 +1,13 @@
 package com.chess.server;
 
-public class IdGenerator {
+class IdGenerator {
     private static int counter;
 
-    public IdGenerator() {
+    IdGenerator() {
         counter = 0;
     }
 
-    public int get() {
+    int get() {
         return counter++;
     }
 }

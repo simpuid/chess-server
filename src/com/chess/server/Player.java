@@ -21,14 +21,14 @@ public class Player extends Thread {
     private BufferedReader in;
     private Game game;
 
-    public Player(Socket socket, Server server) throws Exception {
+    Player(Socket socket, Server server) throws Exception {
         this.socket = socket;
         this.server = server;
         out = new PrintWriter(socket.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
-    public void send(String s) {
+    void send(String s) {
         try {
             out.println(s);
         } catch (Exception e) {
@@ -36,16 +36,16 @@ public class Player extends Thread {
         }
     }
 
-    public void send(Result result) {
+    void send(Result result) {
         send(Encoder.encode(result));
     }
 
-    public void close() {
+    void close() {
         try {
             in.close();
             out.close();
             socket.close();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 

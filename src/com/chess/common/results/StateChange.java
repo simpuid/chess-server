@@ -16,9 +16,9 @@ public class StateChange extends Result {
         this.deltas = deltas;
     }
 
-    public StateChange(Scanner scanner) throws Exception {
+    public StateChange(Scanner scanner) {
         int size = scanner.nextInt();
-        deltas = new ArrayList<Delta>(size);
+        deltas = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             deltas.add(new Delta(scanner.nextInt(), scanner.nextInt()));
         }
@@ -27,9 +27,9 @@ public class StateChange extends Result {
     public void write(StringBuilder builder) {
         Encoder.write("result change", builder);
         Encoder.write(deltas.size(), builder);
-        for (int i = 0; i < deltas.size(); i++) {
-            Encoder.write(deltas.get(i).pieceId, builder);
-            Encoder.write(deltas.get(i).positionId, builder);
+        for (Delta delta : deltas) {
+            Encoder.write(delta.pieceId, builder);
+            Encoder.write(delta.positionId, builder);
         }
     }
 }

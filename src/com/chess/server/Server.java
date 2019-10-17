@@ -14,8 +14,8 @@ import java.util.Map;
 
 public class Server {
     private IdGenerator idGenerator;
-    public ChessBoard board;
-    public Map<Integer, Game> map = Collections.synchronizedMap(new HashMap<Integer, Game>(16));
+    ChessBoard board;
+    private Map<Integer, Game> map = Collections.synchronizedMap(new HashMap<>(16));
     private ServerSocket serverSocket;
 
     public Server(int port) throws Exception {
@@ -59,7 +59,6 @@ public class Server {
                 return null;
             }
         }
-        System.out.println("wtf");
         return null;
     }
 

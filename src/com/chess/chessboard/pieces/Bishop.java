@@ -4,6 +4,9 @@ import com.chess.chessboard.ChessBoard;
 import com.chess.common.Position;
 import com.chess.common.moves.MoveNormal;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Bishop extends Piece {
     public Bishop(Color color, int pieceID, Position boxID,PieceType type) {
         this.color = color;
@@ -11,6 +14,10 @@ public class Bishop extends Piece {
         this.boxID = boxID;
         this.type=type;
         this.moveCount=0;
+        if (color == Color.WHITE)
+            icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icons/bishop_white.png")));
+        else
+            icon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icons/bishop_black.png")));
     }
 
     public boolean checkValid(MoveNormal move, ChessBoard chessBoard) {
