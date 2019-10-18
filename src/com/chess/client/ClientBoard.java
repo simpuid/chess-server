@@ -32,11 +32,10 @@ class ClientBoard extends JFrame {
     }
 
     private void initComponents() {
-        nameLabel = new JLabel();
-        whiteLabel = new JLabel();
-        blackLabel = new JLabel();
+        JLabel nameLabel = new JLabel();
+        notifyLabel = new JLabel();
         gameIDLabel = new JLabel();
-        board = new JPanel();
+        JPanel board = new JPanel();
         toggleButton = new JToggleButton[64];
         for (int i = 0; i < 64; i++) {
             toggleButton[i] = new JToggleButton();
@@ -56,31 +55,18 @@ class ClientBoard extends JFrame {
         getContentPane().add(nameLabel);
         nameLabel.setBounds(5, 5, 895, 35);
 
-        whiteLabel.setFont(new Font("Ubuntu", Font.BOLD, 18));
-        whiteLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        whiteLabel.setText("Welcome");
-        whiteLabel.setForeground(new java.awt.Color(0, 0, 0));
-        whiteLabel.setBackground(new java.awt.Color(255, 255, 255));
-        whiteLabel.setBorder(BorderFactory.createLineBorder(java.awt.Color.black));
-        whiteLabel.setOpaque(true);
-        getContentPane().add(whiteLabel);
-        whiteLabel.setBounds(5, 45, 295, 30);
-
-        blackLabel.setFont(new Font("Ubuntu", Font.BOLD, 18));
-        blackLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        blackLabel.setText("Welcome");
-        blackLabel.setOpaque(true);
-        blackLabel.setForeground(new java.awt.Color(255, 255, 255));
-        whiteLabel.setBorder(BorderFactory.createLineBorder(java.awt.Color.white));
-        blackLabel.setBackground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(blackLabel);
-        blackLabel.setBounds(305, 45, 295, 30);
+        notifyLabel.setFont(new Font("Ubuntu", Font.BOLD, 18));
+        notifyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        notifyLabel.setText("Welcome");
+        notifyLabel.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(notifyLabel);
+        notifyLabel.setBounds(5, 45, 445, 30);
 
         gameIDLabel.setFont(new Font("Ubuntu", Font.BOLD, 18));
         gameIDLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gameIDLabel.setText("GameID : ");
         getContentPane().add(gameIDLabel);
-        gameIDLabel.setBounds(605, 45, 295, 30);
+        gameIDLabel.setBounds(455, 45, 445, 30);
 
         board.setFont(new Font("Ubuntu", Font.BOLD, 18));
         board.setMaximumSize(new Dimension(800, 800));
@@ -163,11 +149,9 @@ class ClientBoard extends JFrame {
     void processResult(GameFinished result) {
         System.out.println(result.winner + " wins.");
         if (result.winner == Color.BLACK) {
-            blackLabel.setText("You win.");
-            blackLabel.setBackground(new java.awt.Color(0, 255, 0));
+            notifyLabel.setText("Black wins");
         } else {
-            whiteLabel.setText("You win.");
-            whiteLabel.setBackground(new java.awt.Color(0, 255, 0));
+            notifyLabel.setText("White wins.");
         }
         JOptionPane.showMessageDialog(null, result.winner + " wins");
         client.disconnect();
@@ -197,15 +181,9 @@ class ClientBoard extends JFrame {
             disableBoard();
         }
         if (result.color == Color.BLACK) {
-            blackLabel.setText("Your turn");
-            blackLabel.setForeground(new java.awt.Color(255, 255, 0));
-            whiteLabel.setText("Please Wait");
-            whiteLabel.setForeground(new java.awt.Color(0, 255, 0));
+            notifyLabel.setText("Black's Turn");
         } else {
-            whiteLabel.setText("Your turn");
-            whiteLabel.setForeground(new java.awt.Color(255, 255, 0));
-            blackLabel.setText("Please Wait");
-            blackLabel.setForeground(new java.awt.Color(0, 255, 0));
+            notifyLabel.setText("White's Turn");
         }
     }
 
@@ -215,15 +193,9 @@ class ClientBoard extends JFrame {
             enableBoard();
         }
         if (result.color == Color.BLACK) {
-            blackLabel.setText("Invalid Move");
-            blackLabel.setForeground(new java.awt.Color(255, 0, 0));
-            whiteLabel.setText("Please Wait");
-            whiteLabel.setForeground(new java.awt.Color(0, 255, 0));
+            notifyLabel.setText("Black : Invalid Move");
         } else {
-            whiteLabel.setText("Invalid Move");
-            whiteLabel.setForeground(new java.awt.Color(255, 0, 0));
-            blackLabel.setText("Please Wait");
-            blackLabel.setForeground(new java.awt.Color(0, 255, 0));
+            notifyLabel.setText("White : Invalid Move");
         }
     }
 
@@ -244,10 +216,7 @@ class ClientBoard extends JFrame {
         java.awt.EventQueue.invokeLater(() -> this.setVisible(true));
     }
 
-    private JLabel nameLabel;
-    private JLabel whiteLabel;
-    private JLabel blackLabel;
+    private JLabel notifyLabel;
     private JLabel gameIDLabel;
-    private JPanel board;
     private JToggleButton[] toggleButton;
 }
