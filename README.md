@@ -78,7 +78,7 @@ Replace `4444` by the required port number.
 ##### For other Linux based systems:
   Refer this [link](https://www.ibm.com/support/knowledgecenter/en/STXKQY_5.0.0/com.ibm.spectrum.scale.v5r00.doc/bl1adv_firewallportopenexamples.htm).
   
-##### For MacOSx:
+##### For MacOSX:
   Refer this [link](https://gauravsohoni.wordpress.com/2015/04/14/mac-osx-open-port/).
 
 ### Happy Chess!
