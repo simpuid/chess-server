@@ -1,15 +1,15 @@
-#	result invalid
-#	result finish [white/black]
-#	result change <deltaCount> { <pieceId> <positionId> }
-#   result turn <color>
+#   request host
+#   request join <gameID>
+
+#   response error
+#   response success <gameID> <color>
 
 #	move normal <gameId> <color> <timeStamp> <pieceId> <source> <destination>
 #	move terminate <gameId> <color> <timeStamp>
 #	move castle <gameId> <color> <timeStamp> <kingId> <kingSource> <kingDestination> <rookId> <rookSource> <rookDestination>
 #	move upgrade <gameId> <color> <timeStamp> <pieceId> <source> <destination> <pieceType>
 
-#   request host
-#   request join <gameID>
-
-#   response error
-#   response success <gameID> <color>
+#	result invalid
+#	result finish <color>
+#	result change <deltaCount> { <pieceId> <positionId> }
+#   result turn <color>
