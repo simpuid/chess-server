@@ -14,7 +14,7 @@ mv out/ ../ && cd .. && cp -r res/* out/
 
 After compiling the code, execute the following command in the **out** directory:
 ```
-jar cvf chess.jar .
+jar cvfe chess.jar com.chess.Main .
 ```
 
 ### Running the JAR File:
