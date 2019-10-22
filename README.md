@@ -7,12 +7,12 @@ Then open a Terminal/Command Prompt in the Download directory and run the follow
 ```
 cd chess-server/src
 mkdir out && javac com/chess/Main.java -d out
-mv out/ ../ && cp -r res/* out/
+mv out/ ../ && cd .. && cp -r res/* out/
 ```
 
 ### Making an executable JAR File:
 
-After compiling the code, execute the following command in the out directory:
+After compiling the code, execute the following command in the **out** directory:
 ```
 jar cvf chess.jar .
 ```
